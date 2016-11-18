@@ -10,7 +10,7 @@ public class User {
 	private String profile;
 	
 	public User() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public User(String firstname, String lastname, String email, String profile) {
