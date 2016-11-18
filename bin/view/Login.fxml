@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="0.0" prefHeight="300.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginController">
+   <children>
+      <Label fx:id="isConnected" layoutX="38.0" layoutY="70.0" prefHeight="17.0" prefWidth="223.0" textAlignment="CENTER" textFill="#e80404" />
+      <TextField fx:id="txt_login" layoutX="38.0" layoutY="98.0" prefHeight="25.0" prefWidth="223.0" promptText="Identifiant" />
+      <PasswordField fx:id="txt_password" layoutX="40.0" layoutY="141.0" prefHeight="25.0" prefWidth="223.0" promptText="Mot de Passe" />
+      <Button layoutX="75.0" layoutY="198.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="149.0" text="Connexion" />
+      <Label layoutX="94.0" layoutY="28.0" text="Connexion" textAlignment="CENTER">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>
