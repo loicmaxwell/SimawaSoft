@@ -27,11 +27,12 @@ public class HomeController implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		utility = new Utility();
 		
-		// TODO Auto-generated method stub
 		User current_user = (User) Main.session.get("current_user");
+		String firstName = current_user.getFirstname() != null ? current_user.getFirstname() : "";
+		String lastName = current_user.getLastname() != null ? current_user.getLastname().toUpperCase() : "";
 		if (current_user != null) {
-			userlbl.setText("Bienvenue " + current_user.getFirstname() + " " + current_user.getLastname());
-			menuBtn_currentUser.setText(current_user.getFirstname() + " " +current_user.getLastname().toUpperCase());
+			userlbl.setText("Bienvenue " + firstName + " " + lastName);
+			menuBtn_currentUser.setText(firstName + " " +lastName);
 		}
 	}
 

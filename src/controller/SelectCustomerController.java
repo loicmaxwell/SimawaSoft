@@ -10,18 +10,21 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 public class SelectCustomerController implements Initializable {
 	
 	@FXML
-	TableView<Customer> tableCustomer;	
+	TableView<Customer> customerTable;	
 	@FXML
 	TableColumn<Customer, Integer> cIdCard;	
 	@FXML
 	TableColumn<Customer, String> cFirstname;
 	@FXML
 	TableColumn<Customer, String> cLastname;
+	@FXML
+	TextField searchField;
 	
 	final ObservableList<Customer> data = FXCollections.observableArrayList(
 			new Customer(10000001, "CNI", "Diesel", "WOUAFO"),
@@ -35,12 +38,33 @@ public class SelectCustomerController implements Initializable {
 		cIdCard.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("id_card"));
 		cFirstname.setCellValueFactory(new PropertyValueFactory<Customer, String>("firstname"));
 		cLastname.setCellValueFactory(new PropertyValueFactory<Customer, String>("lastname"));
-		tableCustomer.setItems(data);
+		customerTable.setItems(data);
+		
+		// Add listener on search field
+		
+		searchField.requestFocus();
 	}
 
 	public void selectCustomer(){
-		Customer userSelected = tableCustomer.getSelectionModel().getSelectedItem();
+		Customer userSelected = customerTable.getSelectionModel().getSelectedItem();
 		System.out.println(userSelected.getFirstname());
 		System.out.println(userSelected.getLastname());
+	}
+	
+	
+	public void filterCustomerList(String oldValue, String newValue){
+		ObservableList<Customer> filteredList = FXCollections.observableArrayList();
+		if(searchField == null || oldValue.length() < newValue.length() || newValue == null){
+			customerTable.setItems(data);
+		}
+		else{
+			newValue = newValue.toUpperCase();
+			for(Customer aCustomer : customerTable.getItems()){
+				if(aCustomer.getFirstname().toUpperCase().contains(newValue) || aCustomer.getLastname().toUpperCase().contains(newValue)){
+					filteredList.add(aCustomer);
+				}
+			}
+			customerTable.setItems(data);
+		}
 	}
 }

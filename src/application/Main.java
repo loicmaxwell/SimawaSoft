@@ -1,22 +1,27 @@
 package application;
 	
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
+import exceptions.DatabaseException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import model.database.DBManager;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 
 public class Main extends Application {
+	public static DBManager dbManager ;
 	public static Map<String, Object> session = new HashMap<String, Object>();
 	
 	public static Stage primaryStage;
 	
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws DatabaseException, SQLException {
+		dbManager = new DBManager();
 		Main.primaryStage = primaryStage;
 		Main.primaryStage.setResizable(false);
 		

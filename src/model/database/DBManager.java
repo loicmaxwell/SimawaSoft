@@ -1,6 +1,7 @@
 package model.database;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -32,8 +33,19 @@ public class DBManager {
 		create.append("profile varchar(50)) ");
 		update(create.toString());
 		
-		update("insert into users(lastname, login,password) values('root', 'root','password123$')");
-		System.out.println("create table users ok");
+		System.out.println("==> create table Users OK");
+		
+		// Créé l'utilisateur ROOT
+		Statement st = connection.createStatement();;
+		String sql = "SELECT * FROM users WHERE login = 'root' Limit 1";
+		ResultSet rs = st.executeQuery(sql);
+		
+		if(!rs.next()){		
+			System.out.println("Creation de l'utilisateur Root...");
+			st.executeUpdate("insert into users(lastname, login,password) values('root', 'root','password123$')");    // run the query
+	    	st.close();
+	    	st = null;
+	    }
 		
 	}
 
@@ -53,7 +65,9 @@ public class DBManager {
 		create.append("foreign key(id_user) references users(id_user), ");
 		create.append("foreign key(id_room) references rooms(id_room), ");
 		create.append("foreign key(id_customer) references customers(id_customer)) ");
-		update(create.toString());
+		update(create.toString());		
+
+		System.out.println("==> Table Transactions OK");
 
 	}
 
@@ -67,7 +81,9 @@ public class DBManager {
 		create.append("size double(50), ");
 		create.append("tv boolean(1), ");
 		create.append("fan boolean(1)) ");
-		update(create.toString());
+		update(create.toString());		
+
+		System.out.println("==> Table Rooms OK");
 	}
 
 	private static void createTableCustomers() throws DatabaseException, SQLException {
@@ -82,7 +98,8 @@ public class DBManager {
 		create.append("phone integer(50), ");
 		create.append("birthdate varchar(250)) ");
 		update(create.toString());
-		
+
+		System.out.println("==> Table Customers OK");
 	}
 	
 	private static synchronized void update(String expression) throws DatabaseException, SQLException
