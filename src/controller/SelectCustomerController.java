@@ -42,7 +42,11 @@ public class SelectCustomerController implements Initializable {
 		
 		// Add listener on search field
 		
-		searchField.requestFocus();
+		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+		    filterCustomerList(oldValue, newValue);
+		});
+		
+		
 	}
 
 	public void selectCustomer(){
@@ -54,7 +58,7 @@ public class SelectCustomerController implements Initializable {
 	
 	public void filterCustomerList(String oldValue, String newValue){
 		ObservableList<Customer> filteredList = FXCollections.observableArrayList();
-		if(searchField == null || oldValue.length() < newValue.length() || newValue == null){
+		if(newValue.equals("")){
 			customerTable.setItems(data);
 		}
 		else{
@@ -64,7 +68,7 @@ public class SelectCustomerController implements Initializable {
 					filteredList.add(aCustomer);
 				}
 			}
-			customerTable.setItems(data);
+			customerTable.setItems(filteredList);
 		}
 	}
 }
