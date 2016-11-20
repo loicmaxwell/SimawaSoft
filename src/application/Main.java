@@ -21,6 +21,7 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws DatabaseException, SQLException {
+		//test
 		dbManager = new DBManager();
 		Main.primaryStage = primaryStage;
 		Main.primaryStage.setResizable(false);
