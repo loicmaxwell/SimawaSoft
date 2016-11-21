@@ -9,31 +9,103 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
-   <top>
-      <Pane>
-         <children>
-            <Label fx:id="userlbl" layoutX="13.0" layoutY="2.0" prefHeight="32.0" prefWidth="498.0" text="Label" textAlignment="CENTER" BorderPane.alignment="CENTER">
-               <font>
-                  <Font size="22.0" />
-               </font>
-            </Label>
-            <MenuButton fx:id="menuBtn_currentUser" layoutX="634.0" layoutY="2.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="31.0" prefWidth="146.0" text="Menu">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#deconnexion" text="Deconnexion" />
-              </items>
-            </MenuButton>
-         </children>
-      </Pane>
-   </top>
-   <center>
-      <Pane prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" onAction="#selectCustomer" prefHeight="74.0" prefWidth="183.0" text="Liste des clients" />
-         </children>
-      </Pane>
-   </center>
-   <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-   </padding>
-</BorderPane>
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.HomeController">
+   <children>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="855.0" prefWidth="1247.0">
+         <top>
+            <Pane>
+               <children>
+                  <Label fx:id="userlbl" layoutX="13.0" layoutY="2.0" prefHeight="32.0" prefWidth="498.0" text="Label" textAlignment="CENTER" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="22.0" />
+                     </font>
+                  </Label>
+                  <MenuButton fx:id="menuBtn_currentUser" layoutX="1073.0" layoutY="-1.0" mnemonicParsing="false" onAction="#deconnexion" prefHeight="31.0" prefWidth="146.0" text="Menu">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#deconnexion" text="Deconnexion" />
+                    </items>
+                  </MenuButton>
+               </children>
+            </Pane>
+         </top>
+         <center>
+            <Pane prefHeight="769.0" prefWidth="1252.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button layoutX="9.0" layoutY="14.0" mnemonicParsing="false" onAction="#selectCustomer" prefHeight="45.0" prefWidth="140.0" text="Liste des clients" />
+                  <TabPane layoutX="14.0" layoutY="75.0" prefHeight="725.0" prefWidth="1216.0" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                      <Tab text="Accueil">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                        <Tab text="Reservations">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                      <Tab text="Clients">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="674.0" prefWidth="1216.0">
+                                 <children>
+                                    <TableView fx:id="customerTable" layoutX="16.0" layoutY="73.0" onMouseClicked="#selectCustomer" prefHeight="514.0" prefWidth="839.0">
+                                      <columns>
+                                        <TableColumn fx:id="cIdCard" prefWidth="200.0" text="CNI" />
+                                        <TableColumn fx:id="cFirstname" prefWidth="200.0" text="Prénom" />
+                                          <TableColumn fx:id="cLastname" prefWidth="200.0" text="Nom" />
+                                      </columns>
+                                    </TableView>
+                                    <GridPane layoutX="14.0" layoutY="14.0" prefHeight="50.0" prefWidth="483.0">
+                                      <columnConstraints>
+                                        <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="294.0" minWidth="10.0" prefWidth="95.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="584.0" minWidth="10.0" prefWidth="368.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <TextField fx:id="searchField" prefHeight="31.0" prefWidth="235.0" GridPane.columnIndex="1">
+                                             <GridPane.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                             </GridPane.margin>
+                                          </TextField>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Rechercher">
+                                             <GridPane.margin>
+                                                <Insets />
+                                             </GridPane.margin>
+                                          </Text>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </padding>
+                                    </GridPane>
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                        <Tab text="Chambres">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Comptabilité">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                           </content>
+                        </Tab>
+                        <Tab text="Administration">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="538.0" prefWidth="911.0" />
+                           </content>
+                        </Tab>
+                    </tabs>
+                  </TabPane>
+               </children>
+            </Pane>
+         </center>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </BorderPane>
+   </children>
+</AnchorPane>

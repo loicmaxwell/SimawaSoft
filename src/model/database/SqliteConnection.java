@@ -8,7 +8,7 @@ public class SqliteConnection {
 	public static Connection connector(){
 		try {
 			//Class.forName("org.sqlite.jdbc");
-			Connection con = DriverManager.getConnection("jdbc:sqlite:db_test1.db");
+			Connection con = DriverManager.getConnection("jdbc:sqlite:db_test.db");
 			System.out.println("DB Connection Succesfull");
 			return con;
 			
