@@ -2,27 +2,25 @@ package beans;
 
 public class Customer {
 	private int id_customer;
-	private int id_card;
+	private String id_card;
 	private String documentType;
 	private String firstname;
 	private String lastname;
 	private String email;
-	private int phone;
-	private String birthday;
+	private String phone;
+	private String birthdate;
 	
 	public Customer() {
 		// TODO Auto-generated constructor stub
 	}	
 
-	public Customer(int id_card, String documentType, String firstname, String lastname) {
+	public Customer(String id_card, String documentType, String firstname, String lastname) {
 		super();
 		this.id_card = id_card;
 		this.documentType = documentType;
 		this.firstname = firstname;
 		this.lastname = lastname;
 	}
-
-
 
 	public int getId_customer() {
 		return id_customer;
@@ -32,11 +30,11 @@ public class Customer {
 		this.id_customer = id_customer;
 	}
 
-	public int getId_card() {
+	public String getId_card() {
 		return id_card;
 	}
 
-	public void setId_card(int id_card) {
+	public void setId_card(String id_card) {
 		this.id_card = id_card;
 	}
 
@@ -72,20 +70,20 @@ public class Customer {
 		this.email = email;
 	}
 
-	public int getPhone() {
+	public String getPhone() {
 		return phone;
 	}
 
-	public void setPhone(int phone) {
+	public void setPhone(String phone) {
 		this.phone = phone;
 	}
 
-	public String getBirthday() {
-		return birthday;
+	public String getBirthdate() {
+		return birthdate;
 	}
 
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
+	public void setBirthdate(String birthdate) {
+		this.birthdate = birthdate;
 	}
 	
 	

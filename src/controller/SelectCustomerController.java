@@ -26,11 +26,7 @@ public class SelectCustomerController implements Initializable {
 	@FXML
 	TextField searchField;
 	
-	final ObservableList<Customer> data = FXCollections.observableArrayList(
-			new Customer(10000001, "CNI", "Diesel", "WOUAFO"),
-			new Customer(10002256, "CNI", "Maxwell", "KUE"),
-			new Customer(10229820, "CNI", "Loic", "MENKOUEN")
-	);
+	final ObservableList<Customer> data = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

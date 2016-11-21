@@ -21,9 +21,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.objects.CustomerModel;
 
 public class HomeController implements Initializable {
 	public Utility utility;
+	private CustomerModel customerModel;
 
 	@FXML
 	private Label userlbl;
@@ -32,23 +34,28 @@ public class HomeController implements Initializable {
 	@FXML
 	TableView<Customer> customerTable;	
 	@FXML
-	TableColumn<Customer, Integer> cIdCard;	
+	TableColumn<Customer, String> cIdCard;	
+	@FXML
+	TableColumn<Customer, String> cDocumentType;
 	@FXML
 	TableColumn<Customer, String> cFirstname;
 	@FXML
 	TableColumn<Customer, String> cLastname;
 	@FXML
+	TableColumn<Customer, String> cEmail;
+	@FXML
+	TableColumn<Customer, String> cPhone;
+	@FXML
+	TableColumn<Customer, String> cBirthdate;
+	@FXML
 	TextField searchField;
 	
-	final ObservableList<Customer> data = FXCollections.observableArrayList(
-			new Customer(10000001, "CNI", "Diesel", "WOUAFO"),
-			new Customer(10002256, "CNI", "Maxwell", "KUE"),
-			new Customer(10229820, "CNI", "Loic", "MENKOUEN")
-	);
+	final ObservableList<Customer> customerTableData = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		utility = new Utility();
+		customerModel = new CustomerModel();
 		
 		User current_user = (User) Main.session.get("current_user");
 		String firstName = current_user.getFirstname() != null ? current_user.getFirstname() : "";
@@ -57,21 +64,22 @@ public class HomeController implements Initializable {
 			userlbl.setText("Bienvenue " + firstName + " " + lastName);
 			menuBtn_currentUser.setText(firstName + " " +lastName);
 		}
-		
-		cIdCard.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("id_card"));
+
+		cIdCard.setCellValueFactory(new PropertyValueFactory<Customer, String>("id_card"));
+		cDocumentType.setCellValueFactory(new PropertyValueFactory<Customer, String>("documentType"));
 		cFirstname.setCellValueFactory(new PropertyValueFactory<Customer, String>("firstname"));
 		cLastname.setCellValueFactory(new PropertyValueFactory<Customer, String>("lastname"));
-		customerTable.setItems(data);
+		cEmail.setCellValueFactory(new PropertyValueFactory<Customer, String>("email"));
+		cPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("phone"));
+		cBirthdate.setCellValueFactory(new PropertyValueFactory<Customer, String>("birthdate"));	
 		
-		// Add listener on search field
+		customerTableData.addAll(customerModel.getAllCustomer()); 
+		customerTable.setItems(customerTableData);
 		
+		// Add listener on search field		
 		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
 		    filterCustomerList(oldValue, newValue);
 		});
-	}
-
-	public void getUser(String user) {
-		userlbl.setText(user);
 	}
 
 	public void deconnexion(ActionEvent event) throws IOException {
@@ -96,12 +104,15 @@ public class HomeController implements Initializable {
 	public void filterCustomerList(String oldValue, String newValue){
 		ObservableList<Customer> filteredList = FXCollections.observableArrayList();
 		if(newValue.equals("")){
-			customerTable.setItems(data);
+			customerTable.setItems(customerTableData);
 		}
 		else{
 			newValue = newValue.toUpperCase();
 			for(Customer aCustomer : customerTable.getItems()){
-				if(aCustomer.getFirstname().toUpperCase().contains(newValue) || aCustomer.getLastname().toUpperCase().contains(newValue)){
+				if(aCustomer.getFirstname().toUpperCase().contains(newValue) 
+					|| aCustomer.getLastname().toUpperCase().contains(newValue) 
+					|| aCustomer.getId_card().contains(newValue))
+				{					
 					filteredList.add(aCustomer);
 				}
 			}
