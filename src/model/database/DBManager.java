@@ -27,7 +27,7 @@ public class DBManager {
 		create.append("firstname varchar(50), ");
 		create.append("lastname varchar(50), ");
 		create.append("email varchar(100), ");
-		create.append("phone integer(50), ");
+		create.append("phone varchar(10), ");
 		create.append("login varchar(50), ");
 		create.append("password varchar(250), ");
 		create.append("profile varchar(50)) ");
@@ -35,7 +35,7 @@ public class DBManager {
 		
 		System.out.println("==> create table Users OK");
 		
-		// Créé l'utilisateur ROOT
+		// Crï¿½ï¿½ l'utilisateur ROOT
 		Statement st = connection.createStatement();;
 		String sql = "SELECT * FROM users WHERE login = 'root' Limit 1";
 		ResultSet rs = st.executeQuery(sql);
@@ -90,12 +90,12 @@ public class DBManager {
 		StringBuilder create = new StringBuilder();
 		create.append("create table if not exists customers (");
 		create.append("id_customer INTEGER PRIMARY KEY AUTOINCREMENT, ");
-		create.append("id_card integer(50), ");
+		create.append("id_card varchar(50), ");
 		create.append("documentType varchar(50), ");
 		create.append("firstname varchar(50), ");
 		create.append("lastname varchar(50), ");
 		create.append("email varchar(100), ");
-		create.append("phone integer(50), ");
+		create.append("phone varchar(10), ");
 		create.append("birthdate varchar(250)) ");
 		update(create.toString());
 

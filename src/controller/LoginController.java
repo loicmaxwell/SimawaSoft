@@ -69,7 +69,7 @@ public class LoginController implements Initializable {
 				//Fermeture de la fenetre de connexion
 				((Node)event.getSource()).getScene().getWindow().hide();
 
-				utility.openView(event, "Home", "Accueil");
+				utility.openView(event, "Home", "SimawaSoft");
 				
 			} else {
 				System.out.println("login ou mot de passe incorrect");

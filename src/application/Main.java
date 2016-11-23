@@ -14,9 +14,10 @@ import javafx.scene.Scene;
 
 
 public class Main extends Application {
-	public static DBManager dbManager ;
-	public static Map<String, Object> session = new HashMap<String, Object>();
+	public static final String SALT = "DTLXQfHHoVm97LPyLZEN";
 	
+	public static DBManager dbManager ;
+	public static Map<String, Object> session = new HashMap<String, Object>();	
 	public static Stage primaryStage;
 	
 	@Override
@@ -31,8 +32,9 @@ public class Main extends Application {
 			Scene scene = new Scene(root);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("Connexion");
 			primaryStage.setResizable(false);
-			primaryStage.show();
+			primaryStage.show();			
 		} 
 		catch(Exception e) {
 			e.printStackTrace();
