@@ -48,7 +48,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="674.0" prefWidth="1216.0">
                                  <children>
-                                    <TableView fx:id="customerTable" layoutY="72.0" onMouseClicked="#selectCustomer" prefHeight="671.0" prefWidth="1227.0">
+                                    <TableView fx:id="customerTable" layoutY="57.0" onMouseClicked="#selectCustomer" prefHeight="686.0" prefWidth="1227.0">
                                       <columns>
                                         <TableColumn fx:id="cFirstname" prefWidth="173.0" text="Prénom" />
                                           <TableColumn fx:id="cLastname" prefWidth="173.0" text="Nom" />
@@ -59,8 +59,8 @@
                                           <TableColumn fx:id="cBirthdate" prefWidth="173.0" text="Date de naissance" />
                                       </columns>
                                     </TableView>
-                                    <TextField fx:id="searchField" layoutY="24.0" prefHeight="31.0" prefWidth="316.0" promptText="Rechercher un client " />
-                                    <Button layoutX="375.0" layoutY="24.0" mnemonicParsing="false" text="Nouveau client" />
+                                    <TextField fx:id="searchField" layoutY="15.0" prefHeight="31.0" prefWidth="534.0" promptText="Rechercher un client " />
+                                    <Button layoutX="1107.0" layoutY="15.0" mnemonicParsing="false" text="Nouveau client" />
                                  </children>
                               </AnchorPane>
                         </content>
