@@ -46,35 +46,16 @@ public class LoginController implements Initializable {
 	@FXML
 	public void login(ActionEvent event) throws SQLException, IOException{
 		if(loginModel.isLogin(txt_login.getText(), txt_password.getText())){		
-			
-			System.out.println("Connexion Réussie");
-
 			//Fermeture de la fenetre de connexion
 			((Node)event.getSource()).getScene().getWindow().hide();
-
 			utility.openView(event, "Home", "Accueil");
-			
 		} else {
-			System.out.println("login ou mot de passe incorrect");
-			isConnected.setText("login ou mot de passe incorrect");
-		}
-	}
-	
-	public void keyEnterPressed(KeyEvent event) throws SQLException, IOException{
-		if(event.getCode() == KeyCode.ENTER){
-			if(loginModel.isLogin(txt_login.getText(), txt_password.getText())){		
-				
-				System.out.println("Connexion Réussie");
-
-				//Fermeture de la fenetre de connexion
-				((Node)event.getSource()).getScene().getWindow().hide();
-
-				utility.openView(event, "Home", "SimawaSoft");
-				
-			} else {
-				System.out.println("login ou mot de passe incorrect");
-				isConnected.setText("login ou mot de passe incorrect");
+			if (txt_login.getText().equals("") || txt_password.getText().equals("")) {
+				isConnected.setText("Les champs Login et mot de passe sont obligatoires.");
+			}else {
+				isConnected.setText("La combinaison login et mot de passe est incorrecte");
 			}
 		}
 	}
+
 }
