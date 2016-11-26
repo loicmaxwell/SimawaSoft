@@ -20,7 +20,6 @@ public class DBManager {
 	
 	
 	private static void createTableUsers() throws DatabaseException, SQLException {
-		System.out.println("start create table users");
 		StringBuilder create = new StringBuilder();
 		create.append("create table if not exists users (");
 		create.append("id_user INTEGER PRIMARY KEY AUTOINCREMENT, ");
@@ -32,16 +31,14 @@ public class DBManager {
 		create.append("password varchar(250), ");
 		create.append("profile varchar(50)) ");
 		update(create.toString());
-		
-		System.out.println("==> create table Users OK");
+	
 		
 		// Cr�� l'utilisateur ROOT
 		Statement st = connection.createStatement();;
 		String sql = "SELECT * FROM users WHERE login = 'root' Limit 1";
 		ResultSet rs = st.executeQuery(sql);
 		
-		if(!rs.next()){		
-			System.out.println("Creation de l'utilisateur Root...");
+		if(!rs.next()){
 			st.executeUpdate("insert into users(lastname, login,password) values('root', 'root','password123$')");    // run the query
 	    	st.close();
 	    	st = null;
@@ -66,9 +63,6 @@ public class DBManager {
 		create.append("foreign key(id_room) references rooms(id_room), ");
 		create.append("foreign key(id_customer) references customers(id_customer)) ");
 		update(create.toString());		
-
-		System.out.println("==> Table Transactions OK");
-
 	}
 
 	private static void createTableRooms() throws DatabaseException, SQLException {
@@ -82,8 +76,6 @@ public class DBManager {
 		create.append("tv boolean(1), ");
 		create.append("fan boolean(1)) ");
 		update(create.toString());		
-
-		System.out.println("==> Table Rooms OK");
 	}
 
 	private static void createTableCustomers() throws DatabaseException, SQLException {
@@ -98,8 +90,6 @@ public class DBManager {
 		create.append("phone varchar(10), ");
 		create.append("birthdate varchar(250)) ");
 		update(create.toString());
-
-		System.out.println("==> Table Customers OK");
 	}
 	
 	private static synchronized void update(String expression) throws DatabaseException, SQLException
