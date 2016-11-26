@@ -86,5 +86,8 @@ public class Customer {
 		this.birthdate = birthdate;
 	}
 	
-	
+	// used for context menu in selectCustomerController
+	public Customer getCustomer() {
+		return new Customer(this.id_card, this.documentType, this.firstname, this.lastname);
+	}
 }
