@@ -2,26 +2,37 @@ package controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
 import beans.Customer;
 import beans.User;
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 import model.objects.CustomerModel;
+import tools.Tools;
 
 public class HomeController implements Initializable {
 	public Utility utility;
@@ -49,6 +60,8 @@ public class HomeController implements Initializable {
 	TableColumn<Customer, String> cBirthdate;
 	@FXML
 	TextField searchField;
+	@FXML
+	private Button btnAddCustomer;
 	
 	final ObservableList<Customer> customerTableData = FXCollections.observableArrayList();
 
@@ -75,6 +88,48 @@ public class HomeController implements Initializable {
 		
 		customerTableData.addAll(customerModel.getAllCustomer()); 
 		customerTable.setItems(customerTableData);
+		customerTable.setRowFactory(new Callback<TableView<Customer>, TableRow<Customer>>() {
+			@Override
+			public TableRow<Customer> call(TableView<Customer> tableView) {
+				final TableRow<Customer> row = new TableRow<>();
+				final ContextMenu contextMenu = new ContextMenu();
+				contextMenu.setId("contextMenu");
+				final MenuItem deleteMenuItem = new MenuItem("Supprimer");
+				final MenuItem editMenuItem = new MenuItem("Modifier");
+
+				// Set context menu on row, but use a binding to make it only show for non-empty rows:
+				row.contextMenuProperty().bind(Bindings.when(row.emptyProperty()).then((ContextMenu) null).otherwise(contextMenu));
+				
+				contextMenu.getItems().addAll(editMenuItem, deleteMenuItem);
+
+				deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						Alert alert = Tools.showConfirmationDialog("Voulez-vous vraiment supprimer ce client?");
+						Optional<ButtonType> result = alert.showAndWait();
+						if (result.get() == ButtonType.CANCEL) {
+							alert.hide();
+						} else {
+							//TODO action to delete a customer
+							Customer customer = customerTable.getItems().get(row.getIndex()).getCustomer();
+							System.out.println(customer.getFirstname() + " deleted");
+						}
+					}
+				});
+
+				editMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						//TODO action to edit a customer
+						Customer customer = customerTable.getItems().get(row.getIndex()).getCustomer();
+						System.out.println(customer.getFirstname() + " edited");
+					}
+				});
+				
+
+				return row;
+			}
+		});
 		
 		// Add listener on search field		
 		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -96,8 +151,6 @@ public class HomeController implements Initializable {
 
 	public void selectCustomer(){
 		Customer userSelected = customerTable.getSelectionModel().getSelectedItem();
-		System.out.println(userSelected.getFirstname());
-		System.out.println(userSelected.getLastname());
 	}
 	
 	
@@ -118,6 +171,12 @@ public class HomeController implements Initializable {
 			}
 			customerTable.setItems(filteredList);
 		}
+	}
+	
+	@FXML
+	private void addCustomer() {
+		//TODO
+		System.out.println("add customer");
 	}
 
 }
