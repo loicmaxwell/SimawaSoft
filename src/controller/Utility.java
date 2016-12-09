@@ -56,19 +56,4 @@ public class Utility {
 		((Node) event.getSource()).getScene().getWindow().hide();
 	}
 	
-	public String passwordHasher(String pwd) throws NoSuchAlgorithmException{
-		String toHash = pwd + Main.SALT;
-		byte[] hash = MessageDigest.getInstance("SHA-256").digest(toHash.getBytes());
-		StringBuilder stringBuilder = new StringBuilder();
-	    for (byte byt : hash) {
-	        String hex = Integer.toHexString(byt);
-	        if (hex.length() == 1) {
-	            stringBuilder.append(0);
-	            stringBuilder.append(hex.charAt(hex.length() - 1));
-	        } else {
-	            stringBuilder.append(hex.substring(hex.length() - 2));
-	        }
-	    }
-	    return stringBuilder.toString();
-	}
 }

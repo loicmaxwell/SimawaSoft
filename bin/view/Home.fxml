@@ -25,7 +25,6 @@
                       <MenuItem mnemonicParsing="false" onAction="#deconnexion" text="Deconnexion" />
                     </items>
                   </MenuButton>
-                  <Button disable="true" layoutX="891.0" layoutY="-1.0" mnemonicParsing="false" onAction="#selectCustomer" prefHeight="31.0" prefWidth="140.0" text="Liste des clients" />
                </children>
             </Pane>
          </top>
@@ -59,15 +58,29 @@
                                           <TableColumn fx:id="cBirthdate" prefWidth="173.0" text="Date de naissance" />
                                       </columns>
                                     </TableView>
-                                    <TextField fx:id="searchField" layoutY="15.0" prefHeight="31.0" prefWidth="534.0" promptText="Rechercher un client " />
-                                    <Button layoutX="1107.0" layoutY="15.0" mnemonicParsing="false" text="Nouveau client" />
+                                    <TextField fx:id="searchCustomer" layoutY="15.0" prefHeight="31.0" prefWidth="534.0" promptText="Rechercher un client " />
+                                    <Button fx:id="btnAddCustomer" layoutX="1106.0" layoutY="15.0" mnemonicParsing="false" onAction="#addCustomer" prefHeight="31.0" prefWidth="120.0" text="Nouveau" />
                                  </children>
                               </AnchorPane>
                         </content>
                       </Tab>
                         <Tab text="Chambres">
                            <content>
-                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView fx:id="roomTable" layoutY="57.0" onMouseClicked="#selectCustomer" prefHeight="686.0" prefWidth="1227.0">
+                                       <columns>
+                                          <TableColumn fx:id="cRoomNumber" prefWidth="205.0" text="Chambre" />
+                                          <TableColumn fx:id="cPrice" prefWidth="205.0" text="Prix" />
+                                          <TableColumn fx:id="cStatus" prefWidth="205.0" text="Status" />
+                                          <TableColumn fx:id="cSize" prefWidth="204.0" text="Taille" />
+                                          <TableColumn fx:id="cTv" prefWidth="204.0" text="Téléviseur" />
+                                          <TableColumn fx:id="cFan" prefWidth="204.0" text="Ventilateur" />
+                                       </columns>
+                                    </TableView>
+                                    <TextField fx:id="searchRoom" layoutY="15.0" prefHeight="31.0" prefWidth="534.0" promptText="Rechercher une chambre" />
+                                    <Button fx:id="btnAddRoom" layoutX="1105.0" layoutY="15.0" mnemonicParsing="false" onAction="#addRoom" prefHeight="31.0" prefWidth="120.0" text="Nouveau " />
+                                 </children></AnchorPane>
                            </content>
                         </Tab>
                         <Tab text="Comptabilité">

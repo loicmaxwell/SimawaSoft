@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import application.Main;
 import beans.Customer;
+import beans.Room;
 import beans.User;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
@@ -32,16 +33,25 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import model.objects.CustomerModel;
+import model.objects.RoomModel;
 import tools.Tools;
 
 public class HomeController implements Initializable {
 	public Utility utility;
 	private CustomerModel customerModel;
-
+	private RoomModel roomModel;
+	
+	//***** HEADER ****
 	@FXML
 	private Label userlbl;
 	@FXML
 	private MenuButton menuBtn_currentUser;
+	
+	//***** TAB - CUSTOMER *****
+	@FXML
+	TextField searchCustomer;
+	@FXML
+	Button btnAddCustomer;
 	@FXML
 	TableView<Customer> customerTable;	
 	@FXML
@@ -58,17 +68,35 @@ public class HomeController implements Initializable {
 	TableColumn<Customer, String> cPhone;
 	@FXML
 	TableColumn<Customer, String> cBirthdate;
-	@FXML
-	TextField searchField;
-	@FXML
-	private Button btnAddCustomer;
 	
+	//***** TAB - ROOM *****
+	@FXML
+	TextField searchRoom;
+	@FXML
+	Button btnAddRoom;
+	@FXML
+	TableView<Room> roomTable;
+	@FXML
+	TableColumn<Customer, String> cRoomNumber;	
+	@FXML
+	TableColumn<Customer, String> cPrice;
+	@FXML
+	TableColumn<Customer, String> cStatus;
+	@FXML
+	TableColumn<Customer, String> cSize;
+	@FXML
+	TableColumn<Customer, String> cTv;
+	@FXML
+	TableColumn<Customer, String> cFan;	
+
+	final ObservableList<Room> roomTableData = FXCollections.observableArrayList();	
 	final ObservableList<Customer> customerTableData = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		utility = new Utility();
 		customerModel = new CustomerModel();
+		roomModel = new RoomModel();
 		
 		User current_user = (User) Main.session.get("current_user");
 		String firstName = current_user.getFirstname() != null ? current_user.getFirstname() : "";
@@ -77,7 +105,8 @@ public class HomeController implements Initializable {
 			userlbl.setText("Bienvenue " + firstName + " " + lastName);
 			menuBtn_currentUser.setText(firstName + " " +lastName);
 		}
-
+		
+		//***** CUSTOMER *****
 		cIdCard.setCellValueFactory(new PropertyValueFactory<Customer, String>("id_card"));
 		cDocumentType.setCellValueFactory(new PropertyValueFactory<Customer, String>("documentType"));
 		cFirstname.setCellValueFactory(new PropertyValueFactory<Customer, String>("firstname"));
@@ -125,15 +154,31 @@ public class HomeController implements Initializable {
 						System.out.println(customer.getFirstname() + " edited");
 					}
 				});
-				
 
 				return row;
 			}
 		});
 		
 		// Add listener on search field		
-		searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+		searchCustomer.textProperty().addListener((observable, oldValue, newValue) -> {
 		    filterCustomerList(oldValue, newValue);
+		});
+		
+		
+		//***** ROOM *****
+		cRoomNumber.setCellValueFactory(new PropertyValueFactory<Customer, String>("room_number"));
+		cPrice.setCellValueFactory(new PropertyValueFactory<Customer, String>("price"));
+		cStatus.setCellValueFactory(new PropertyValueFactory<Customer, String>("status"));
+		cSize.setCellValueFactory(new PropertyValueFactory<Customer, String>("size"));
+		cTv.setCellValueFactory(new PropertyValueFactory<Customer, String>("tv"));
+		cFan.setCellValueFactory(new PropertyValueFactory<Customer, String>("fan"));	
+		
+		roomTableData.addAll(roomModel.getAllRoom()); 
+		roomTable.setItems(roomTableData);
+		
+		// Add listener on search field		
+		searchRoom.textProperty().addListener((observable, oldValue, newValue) -> {
+			filterRoomList(oldValue, newValue);
 		});
 	}
 
@@ -152,7 +197,6 @@ public class HomeController implements Initializable {
 	public void selectCustomer(){
 		Customer userSelected = customerTable.getSelectionModel().getSelectedItem();
 	}
-	
 	
 	public void filterCustomerList(String oldValue, String newValue){
 		ObservableList<Customer> filteredList = FXCollections.observableArrayList();
@@ -173,10 +217,33 @@ public class HomeController implements Initializable {
 		}
 	}
 	
+	public void filterRoomList(String oldValue, String newValue){
+		ObservableList<Room> filteredList = FXCollections.observableArrayList();
+		if(newValue.equals("")){
+			roomTable.setItems(roomTableData);
+		}
+		else{
+			newValue = newValue.toUpperCase();
+			for(Room aRoom : roomTable.getItems()){
+				String roomNumber_STRING = Integer.toString(aRoom.getRoom_number());
+				if(roomNumber_STRING.contains(newValue))				{					
+					filteredList.add(aRoom);
+				}
+			}
+			roomTable.setItems(filteredList);
+		}
+	}
+	
 	@FXML
 	private void addCustomer() {
 		//TODO
-		System.out.println("add customer");
+		System.out.println("add CUSTOMER");
+	}
+	
+	@FXML
+	private void addRoom() {
+		//TODO
+		System.out.println("add ROOM");
 	}
 
 }

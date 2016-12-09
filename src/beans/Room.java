@@ -2,13 +2,21 @@ package beans;
 
 public class Room {
 	private int id_room;
-	private String room_number;
+	private int room_number;
 	private double price;
 	private String status;
-	private String size;
-	private Boolean tv;
-	private Boolean fan;
+	private int size;
+	private Boolean tv = false;
+	private Boolean fan = false;
 	
+	
+	public Room(int room_number, double price, int size) {
+		super();
+		this.room_number = room_number;
+		this.price = price;
+		this.size = size;
+	}
+
 	public Room() {
 		// TODO Auto-generated constructor stub
 	}
@@ -21,11 +29,11 @@ public class Room {
 		this.id_room = id_room;
 	}
 
-	public String getRoom_number() {
+	public int getRoom_number() {
 		return room_number;
 	}
 
-	public void setRoom_number(String room_number) {
+	public void setRoom_number(int room_number) {
 		this.room_number = room_number;
 	}
 
@@ -45,11 +53,11 @@ public class Room {
 		this.status = status;
 	}
 
-	public String getSize() {
+	public int getSize() {
 		return size;
 	}
 
-	public void setSize(String size) {
+	public void setSize(int size) {
 		this.size = size;
 	}
 

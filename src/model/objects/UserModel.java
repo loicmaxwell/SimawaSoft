@@ -86,23 +86,23 @@ public class UserModel {
 
 			// if the id_user is not specified, it is an insert
 			if (user.getId_user() == 0) {
-				sql = "INSERT INTO Users(firstname, lastname, email, phone, login, password, profile) VALUES (?, ?, ?, ?, ?, ?, ?)";
+				sql = "INSERT INTO Users(firstname, lastname, email, phone, login, profile) VALUES (?, ?, ?, ?, ?, ?, ?)";
 				ps = connection.prepareStatement(sql);
 			} else {
 				System.out.println("UPDATE User...");
-				sql = "UPDATE Users SET firstname=?, lastname=?, email=?, phone=?, login=?, password=?, profile=? WHERE id_user=?";
+				sql = "UPDATE Users SET firstname=?, lastname=?, email=?, phone=?, login=?, profile=? WHERE id_user=?";
 				ps = connection.prepareStatement(sql);
-				ps.setInt(8, user.getId_user());
+				ps.setInt(7, user.getId_user());
 			}
 			ps.setString(1, user.getFirstname());
 			ps.setString(2, user.getLastname());
 			ps.setString(3, user.getEmail());
 			ps.setString(4, user.getPhone());
 			ps.setString(5, user.getLogin());
-			ps.setString(6, user.getPassword());
-			ps.setString(7, user.getProfile());
-			ps.executeUpdate();
-			
+			ps.setString(6, user.getProfile());
+			ps.executeUpdate();			
+
+			//After insert get id of the user, add to the user variable then return
 			if (user.getId_user() == 0) {
 				Statement st = connection.createStatement();
 				ResultSet rs = st.executeQuery("SELECT last_insert_rowid()");
@@ -124,7 +124,7 @@ public class UserModel {
 	 * @return List of User
 	 *****************************/
 	public ArrayList<User> getAllUser() {
-		ArrayList<User> allUser = new ArrayList<User>();
+		ArrayList<User> allUsers = new ArrayList<User>();
 		try {
 			String sql = "SELECT * FROM Users ";
 			Statement st = connection.createStatement();
@@ -137,16 +137,15 @@ public class UserModel {
 				aUser.setEmail(rs.getString("email"));
 				aUser.setPhone(rs.getString("phone"));
 				aUser.setLogin(rs.getString("login"));
-				aUser.setPassword(rs.getString("password"));
 				aUser.setProfile(rs.getString("profile"));
 
-				allUser.add(aUser);
+				allUsers.add(aUser);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return allUser;
+		return allUsers;
 	}
 
 	/*****************************
@@ -170,7 +169,6 @@ public class UserModel {
 				aUser.setEmail(rs.getString("email"));
 				aUser.setPhone(rs.getString("phone"));
 				aUser.setLogin(rs.getString("login"));
-				aUser.setPassword(rs.getString("password"));
 				aUser.setProfile(rs.getString("profile"));
 			}
 

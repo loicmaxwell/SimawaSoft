@@ -1,39 +1,126 @@
 package model.objects;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
 import beans.Room;
+import model.database.DBManager;
 
 public class RoomModel {
 	Connection connection;
 	
+	public RoomModel() {
+		connection = DBManager.getConnection();
+		if (connection == null)
+			System.exit(1);
+	}
+	
+	/***************************************
+	 * Insert or Update a Room
+	 * @param room
+	 * @return the user inserted or updated
+	 ***************************************/
+	public Room upsertRoom(Room room) {
+		try {
+			String sql = null;
+			PreparedStatement ps;
+
+			// if the id_room is not specified, it is an insert
+			if (room.getId_room() == 0) {
+				sql = "INSERT INTO Rooms(room_number, price, status, size, tv, fan) VALUES (?, ?, ?, ?, ?, ?)";
+				ps = connection.prepareStatement(sql);
+			} else {
+				System.out.println("UPDATE Room...");
+				sql = "UPDATE Rooms SET room_number=?, price=?, status=?, size=?, tv=?, fan=? WHERE id_room=?";
+				ps = connection.prepareStatement(sql);
+				ps.setInt(7, room.getId_room());
+			}
+			ps.setInt(1, room.getRoom_number());
+			ps.setDouble(2, room.getPrice());
+			ps.setString(3, room.getStatus());
+			ps.setInt(4, room.getSize());
+			ps.setBoolean(5, room.getTv());
+			ps.setBoolean(6, room.getFan());
+			ps.executeUpdate();
+
+			//After insert get id of the room, add to the room variable then return
+			if (room.getId_room() == 0) {
+				Statement st = connection.createStatement();
+				ResultSet rs = st.executeQuery("SELECT last_insert_rowid()");
+				 if (rs.next()) {
+					 room.setId_room(rs.getInt(1));
+				 }
+			}
+			return room;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	/*****************************
+	 * GET ALL ROOMs
+	 * @return List of Room
+	 *****************************/
 	public ArrayList<Room> getAllRoom() {
-		ArrayList<Room> allRoom = new ArrayList<Room>();
+		ArrayList<Room> allRooms = new ArrayList<Room>();
 		try {
 
 			String sql = "SELECT * FROM Rooms ";
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			while (rs.next()) {
-				Room aRoom = new Room();
-				
+				Room aRoom = new Room();				
 				aRoom.setId_room(rs.getInt("id_room"));
-				aRoom.setRoom_number(rs.getString("room_number").trim());
+				aRoom.setRoom_number(rs.getInt("room_number"));
 				aRoom.setPrice(rs.getDouble("price"));
-				aRoom.setStatus(rs.getString("status").trim());
-				aRoom.setSize(rs.getString("size").trim());
+				aRoom.setStatus(rs.getString("status"));
+				aRoom.setSize(rs.getInt("size"));
 				aRoom.setTv(rs.getBoolean("tv"));
 				aRoom.setFan(rs.getBoolean("fan"));
 
-				allRoom.add(aRoom);
+				allRooms.add(aRoom);
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return allRoom;
+		return allRooms;
+	}
+
+	/*****************************
+	 * GET A ROOM
+	 * @param id_room
+	 * @return a Room OR null
+	 *****************************/
+	public Room getRoom(int id_room) {
+		Room aRoom = null;
+		try {
+			String sql = "SELECT * FROM Rooms WHERE id_room = ? Limit 1";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id_room);
+			ResultSet rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				aRoom = new Room();
+				aRoom.setId_room(rs.getInt("id_room"));
+				aRoom.setRoom_number(rs.getInt("room_number"));
+				aRoom.setPrice(rs.getDouble("price"));
+				aRoom.setStatus(rs.getString("status"));
+				aRoom.setSize(rs.getInt("size"));
+				aRoom.setTv(rs.getBoolean("tv"));
+				aRoom.setFan(rs.getBoolean("fan"));
+			} 
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return aRoom;
 	}
 }

@@ -3,19 +3,20 @@ package tools;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import application.Main;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
@@ -318,6 +319,22 @@ public class Tools {
 	    BigDecimal bd = new BigDecimal(value);
 	    bd = bd.setScale(places, RoundingMode.HALF_UP);
 	    return bd.doubleValue();
+	}
+	
+	public static String passwordHasher(String pwd) throws NoSuchAlgorithmException{
+		String toHash = pwd + Main.SALT;
+		byte[] hash = MessageDigest.getInstance("SHA-256").digest(toHash.getBytes());
+		StringBuilder stringBuilder = new StringBuilder();
+	    for (byte byt : hash) {
+	        String hex = Integer.toHexString(byt);
+	        if (hex.length() == 1) {
+	            stringBuilder.append(0);
+	            stringBuilder.append(hex.charAt(hex.length() - 1));
+	        } else {
+	            stringBuilder.append(hex.substring(hex.length() - 2));
+	        }
+	    }
+	    return stringBuilder.toString();
 	}
 	
 }

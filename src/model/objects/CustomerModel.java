@@ -77,13 +77,13 @@ public class CustomerModel {
 				Customer aCustomer = new Customer();
 
 				aCustomer.setId_customer(rs.getInt("id_customer"));
-				aCustomer.setId_card(rs.getString("id_card").trim());
-				aCustomer.setDocumentType(rs.getString("documentType").trim());
-				aCustomer.setFirstname(rs.getString("firstname").trim());
-				aCustomer.setLastname(rs.getString("lastName").trim());
-				aCustomer.setEmail(rs.getString("email").trim());
+				aCustomer.setId_card(rs.getString("id_card"));
+				aCustomer.setDocumentType(rs.getString("documentType"));
+				aCustomer.setFirstname(rs.getString("firstname"));
+				aCustomer.setLastname(rs.getString("lastName"));
+				aCustomer.setEmail(rs.getString("email"));
 				aCustomer.setPhone(rs.getString("phone"));
-				aCustomer.setBirthdate(rs.getString("birthdate").trim());
+				aCustomer.setBirthdate(rs.getString("birthdate"));
 
 				allCustomer.add(aCustomer);
 			}
