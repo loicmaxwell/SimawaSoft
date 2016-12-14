@@ -152,6 +152,7 @@ public class HomeController implements Initializable {
 						//TODO action to edit a customer
 						Customer customer = customerTable.getItems().get(row.getIndex()).getCustomer();
 						System.out.println(customer.getFirstname() + " edited");
+							
 					}
 				});
 
@@ -192,12 +193,7 @@ public class HomeController implements Initializable {
 		Main.primaryStage.setScene(scene);
 		Main.primaryStage.show();
 	}
-	
-
-	public void selectCustomer(){
-		Customer userSelected = customerTable.getSelectionModel().getSelectedItem();
-	}
-	
+		
 	public void filterCustomerList(String oldValue, String newValue){
 		ObservableList<Customer> filteredList = FXCollections.observableArrayList();
 		if(newValue.equals("")){
@@ -235,9 +231,8 @@ public class HomeController implements Initializable {
 	}
 	
 	@FXML
-	private void addCustomer() {
-		//TODO
-		System.out.println("add CUSTOMER");
+	private void addCustomer(ActionEvent event) throws IOException {
+		utility.openViewAsPopUp(event, "EditCustomer", "Nouveau Client");		
 	}
 	
 	@FXML
