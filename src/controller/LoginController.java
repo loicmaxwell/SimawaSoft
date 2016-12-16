@@ -32,10 +32,15 @@ public class LoginController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		//TODO delete after all test
+		txt_login.setText("kuem");		
+		txt_password.setText("kuem");		
+		
+		
 		utility = new Utility();
 		loginModel = new UserModel();
 		
-		User currentUser = (User) Main.session.get("current_user");
+		User currentUser = (User) Main.sessionData.get("current_user");
 		if(currentUser != null){
 			txt_login.setText(currentUser.getLogin());
 		}

@@ -14,13 +14,20 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}	
 
-	public Customer(String id_card, String documentType, String firstname, String lastname) {
+	public Customer(int id_customer, String id_card, String documentType, String firstname, String lastname,
+			String email, String phone, String birthdate) {
 		super();
+		this.id_customer = id_customer;
 		this.id_card = id_card;
 		this.documentType = documentType;
 		this.firstname = firstname;
 		this.lastname = lastname;
+		this.email = email;
+		this.phone = phone;
+		this.birthdate = birthdate;
 	}
+
+
 
 	public int getId_customer() {
 		return id_customer;
@@ -88,6 +95,6 @@ public class Customer {
 	
 	// used for context menu in selectCustomerController
 	public Customer getCustomer() {
-		return new Customer(this.id_card, this.documentType, this.firstname, this.lastname);
+		return new Customer(this.id_customer, this.id_card, this.documentType, this.firstname, this.lastname, this.email, this.phone, this.birthdate);
 	}
 }

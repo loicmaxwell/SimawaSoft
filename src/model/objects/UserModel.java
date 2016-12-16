@@ -28,7 +28,6 @@ public class UserModel {
 		try {
 			return !connection.isClosed();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -60,7 +59,7 @@ public class UserModel {
 				current_user.setPassword(rs.getString("password"));
 				current_user.setProfile(rs.getString("profile"));
 
-				Main.session.put("current_user", current_user);
+				Main.sessionData.put("current_user", current_user);
 				return true;
 
 			} else {
@@ -68,7 +67,6 @@ public class UserModel {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 			return false;
 		}
@@ -113,7 +111,6 @@ public class UserModel {
 			return user;
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -173,7 +170,6 @@ public class UserModel {
 			}
 
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return aUser;

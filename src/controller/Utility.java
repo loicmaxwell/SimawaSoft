@@ -1,9 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import application.Main;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +16,8 @@ public class Utility {
 		FXMLLoader loader = new FXMLLoader();
 		Parent parent = loader.load(getClass().getResource("/view/" + viewName + ".fxml").openStream());
 		Scene scene = new Scene(parent);
-		Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Stage stage = Main.primaryStage;
+				//(Stage) ((Node) event.getSource()).getScene().getWindow();
 		stage.setScene(scene);
 		stage.setTitle(pageTitle);
 		stage.setResizable(false);
@@ -46,7 +44,8 @@ public class Utility {
 		stage.setScene(new Scene(root));
 		stage.setTitle(pageTitle);
 		stage.initModality(Modality.APPLICATION_MODAL);
-		stage.initOwner(((Node) event.getSource()).getScene().getWindow());
+		stage.initOwner(Main.primaryStage.getScene().getWindow());
+		//stage.initOwner(((Node) event.getSource()).getScene().getWindow());
 		stage.showAndWait();
 
 	}

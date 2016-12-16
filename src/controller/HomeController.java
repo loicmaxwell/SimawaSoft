@@ -15,10 +15,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -38,7 +35,7 @@ import tools.Tools;
 
 public class HomeController implements Initializable {
 	public Utility utility;
-	private CustomerModel customerModel;
+	private static CustomerModel customerModel;
 	private RoomModel roomModel;
 	
 	//***** HEADER ****
@@ -90,7 +87,7 @@ public class HomeController implements Initializable {
 	TableColumn<Customer, String> cFan;	
 
 	final ObservableList<Room> roomTableData = FXCollections.observableArrayList();	
-	final ObservableList<Customer> customerTableData = FXCollections.observableArrayList();
+	public static ObservableList<Customer> customerTableData = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -98,7 +95,7 @@ public class HomeController implements Initializable {
 		customerModel = new CustomerModel();
 		roomModel = new RoomModel();
 		
-		User current_user = (User) Main.session.get("current_user");
+		User current_user = (User) Main.sessionData.get("current_user");
 		String firstName = current_user.getFirstname() != null ? current_user.getFirstname() : "";
 		String lastName = current_user.getLastname() != null ? current_user.getLastname().toUpperCase() : "";
 		if (current_user != null) {
@@ -115,7 +112,7 @@ public class HomeController implements Initializable {
 		cPhone.setCellValueFactory(new PropertyValueFactory<Customer, String>("phone"));
 		cBirthdate.setCellValueFactory(new PropertyValueFactory<Customer, String>("birthdate"));	
 		
-		customerTableData.addAll(customerModel.getAllCustomer()); 
+		refreshDataCustomer(); 
 		customerTable.setItems(customerTableData);
 		customerTable.setRowFactory(new Callback<TableView<Customer>, TableRow<Customer>>() {
 			@Override
@@ -134,7 +131,7 @@ public class HomeController implements Initializable {
 				deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						Alert alert = Tools.showConfirmationDialog("Voulez-vous vraiment supprimer ce client?");
+						Alert alert = Tools.showConfirmationDialog("Voulez-vous vraiment supprimer ce client ?");
 						Optional<ButtonType> result = alert.showAndWait();
 						if (result.get() == ButtonType.CANCEL) {
 							alert.hide();
@@ -151,8 +148,14 @@ public class HomeController implements Initializable {
 					public void handle(ActionEvent event) {
 						//TODO action to edit a customer
 						Customer customer = customerTable.getItems().get(row.getIndex()).getCustomer();
+						System.out.println(" BIRTHDATE : " + customer.getPhone());
+						Main.sessionData.put("customer", customer);
 						System.out.println(customer.getFirstname() + " edited");
-							
+						try {
+							utility.openViewAsPopUp(event, "EditCustomer", "Modifier Client");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}	
 					}
 				});
 
@@ -186,12 +189,15 @@ public class HomeController implements Initializable {
 	public void deconnexion(ActionEvent event) throws IOException {
 		// Fermeture de la fenetre
 		menuBtn_currentUser.getScene().getWindow().hide();
-				
+		utility.openView(event, "Login", "Connexion");		
+		/*
 		FXMLLoader loader = new FXMLLoader();
 		Parent root = loader.load(getClass().getResource("/view/Login.fxml").openStream());
 		Scene scene = new Scene(root);	
 		Main.primaryStage.setScene(scene);
 		Main.primaryStage.show();
+		*/
+		
 	}
 		
 	public void filterCustomerList(String oldValue, String newValue){
@@ -239,6 +245,11 @@ public class HomeController implements Initializable {
 	private void addRoom() {
 		//TODO
 		System.out.println("add ROOM");
+	}
+	
+	public static void refreshDataCustomer(){
+		customerTableData.clear();
+		customerTableData.addAll(customerModel.getAllCustomer()); 
 	}
 
 }

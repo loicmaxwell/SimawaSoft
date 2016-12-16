@@ -1,6 +1,7 @@
 package application;
 	
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,12 +18,12 @@ public class Main extends Application {
 	public static final String SALT = "DTLXQfHHoVm97LPyLZEN";
 	
 	public static DBManager dbManager ;
-	public static Map<String, Object> session = new HashMap<String, Object>();	
+	public static Map<String, Object> sessionData = new HashMap<String, Object>();	
 	public static Stage primaryStage;
+	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 	
 	@Override
 	public void start(Stage primaryStage) throws DatabaseException, SQLException {
-		//test
 		dbManager = new DBManager();
 		Main.primaryStage = primaryStage;
 		Main.primaryStage.setResizable(false);
