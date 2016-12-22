@@ -16,6 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.objects.CustomerModel;
+import tools.Tools;
 
 public class EditCustomerController implements Initializable {
 	public Utility utility;
@@ -46,6 +47,7 @@ public class EditCustomerController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		cb_documentType.getItems().addAll("CNI", "Passport");
+		cb_documentType.getSelectionModel().selectFirst();
 
 		Customer customer2Edit = (Customer) Main.sessionData.get("customer");
 		if (customer2Edit != null) {
@@ -60,7 +62,7 @@ public class EditCustomerController implements Initializable {
 			if (txt_birthdate.getValue() != null) {
 				txt_birthdate.setValue(LocalDate.parse(customer2Edit.getBirthdate(), Main.formatter));
 			}
-			if(customer2Edit.getId_customer() != 0){
+			if (customer2Edit.getId_customer() != 0) {
 				lbl_idCustomer.setText(String.valueOf(customer2Edit.getId_customer()));
 			}
 		}
@@ -68,39 +70,44 @@ public class EditCustomerController implements Initializable {
 
 	@FXML
 	public void cancel(ActionEvent event) {
-		((Node)event.getSource()).getScene().getWindow().hide();
+		((Node) event.getSource()).getScene().getWindow().hide();
 	}
 
 	@FXML
 	public void saveCustomer(ActionEvent event) {
-		try {
-			Customer customer = new Customer();
-			customer.setId_card(txt_idCard.getText());
-			customer.setDocumentType(cb_documentType.getValue());
-			customer.setFirstname(txt_firstname.getText());
-			customer.setLastname(txt_lastname.getText());
-			customer.setEmail(txt_email.getText());
-			customer.setPhone(txt_phone.getText());
-
-			if(txt_birthdate.getValue() != null) {
-				customer.setBirthdate(txt_birthdate.getValue().toString());
+		if(txt_idCard.getText().equals("") || txt_lastname.getText().equals("")){
+			Tools.showErrorDialog("Les champs marqués d'une * sont obligatoires !");
+		}
+		else{
+			try {
+				Customer customer = new Customer();
+				customer.setId_card(txt_idCard.getText());
+				customer.setDocumentType(cb_documentType.getValue());
+				customer.setFirstname(txt_firstname.getText());
+				customer.setLastname(txt_lastname.getText());
+				customer.setEmail(txt_email.getText());
+				customer.setPhone(txt_phone.getText());
+	
+				if(txt_birthdate.getValue() != null) {
+					customer.setBirthdate(txt_birthdate.getValue().toString());
+				}
+				if(!lbl_idCustomer.getText().equals("")){
+					customer.setId_customer(Integer.parseInt(lbl_idCustomer.getText()));
+				}
+				
+				CustomerModel customerModel = new CustomerModel();
+				
+				//TODO Message d'erreur pour les champs obligatoires du formulaire
+				customerModel.upsertCustomer(customer);
+	
+				// Fermeture de la fenetre
+				((Node)event.getSource()).getScene().getWindow().hide();
+	
+				// Rafraichir les données Clients
+				HomeController.refreshDataCustomer();
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
-			if(!lbl_idCustomer.getText().equals("")){
-				customer.setId_customer(Integer.parseInt(lbl_idCustomer.getText()));
-			}
-			
-			CustomerModel customerModel = new CustomerModel();
-			
-			//TODO Message d'erreur pour les champs obligatoires du formulaire
-			customerModel.upsertCustomer(customer);
-
-			// Fermeture de la fenetre
-			((Node)event.getSource()).getScene().getWindow().hide();
-
-			// Rafraichir les données Clients
-			HomeController.refreshDataCustomer();
-		} catch (Exception e) {
-			e.printStackTrace();
 		}
 	}
 }

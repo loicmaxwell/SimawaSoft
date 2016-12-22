@@ -23,18 +23,6 @@ public class Utility {
 		stage.setResizable(false);
 		stage.show();
 
-		/*
-		 * FXMLLoader loader = new FXMLLoader(); Pane root =
-		 * loader.load(getClass().getResource("/view/" + viewName +
-		 * ".fxml").openStream());
-		 * 
-		 * Scene scene = new Scene(root);
-		 * scene.getStylesheets().add(getClass().getResource(
-		 * "/application/application.css").toExternalForm());
-		 * 
-		 * Stage primaryStage = new Stage(); primaryStage.setScene(scene);
-		 * primaryStage.show();
-		 */
 	}
 
 	public void openViewAsPopUp(Event event, String viewName, String pageTitle) throws IOException {

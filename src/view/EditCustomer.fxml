@@ -31,13 +31,13 @@
                </padding>
                <children>
                   <Label text="Prénom" GridPane.rowIndex="2" />
-                  <Label text="Nom" GridPane.rowIndex="3" />
+                  <Label text="Nom *" GridPane.rowIndex="3" />
                   <Label text="Email" GridPane.rowIndex="6" />
                   <Label text="Date de Naissance" GridPane.rowIndex="4" />
                   <Label text="Téléphone" GridPane.rowIndex="5" />
                   <Label />
-                  <Label text="Numéro d'identification" />
-                  <Label text="Type de document" GridPane.rowIndex="1" />
+                  <Label text="Numéro d'identification *" />
+                  <Label text="Type de document *" GridPane.rowIndex="1" />
                   <TextField fx:id="txt_idCard" promptText="CNI / Passport" GridPane.columnIndex="1" />
                   <TextField fx:id="txt_firstname" promptText="Prénom" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <TextField fx:id="txt_lastname" promptText="Nom" GridPane.columnIndex="1" GridPane.rowIndex="3" />

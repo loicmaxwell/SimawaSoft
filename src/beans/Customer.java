@@ -14,8 +14,7 @@ public class Customer {
 		// TODO Auto-generated constructor stub
 	}	
 
-	public Customer(int id_customer, String id_card, String documentType, String firstname, String lastname,
-			String email, String phone, String birthdate) {
+	public Customer(int id_customer, String id_card, String documentType, String firstname, String lastname, String email, String phone, String birthdate) {
 		super();
 		this.id_customer = id_customer;
 		this.id_card = id_card;

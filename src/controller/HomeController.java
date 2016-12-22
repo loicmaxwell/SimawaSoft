@@ -148,7 +148,6 @@ public class HomeController implements Initializable {
 					public void handle(ActionEvent event) {
 						//TODO action to edit a customer
 						Customer customer = customerTable.getItems().get(row.getIndex()).getCustomer();
-						System.out.println(" BIRTHDATE : " + customer.getPhone());
 						Main.sessionData.put("customer", customer);
 						System.out.println(customer.getFirstname() + " edited");
 						try {
