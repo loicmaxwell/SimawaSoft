@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 public class Utility {
 
-	public void openView(Event event, String viewName, String pageTitle) throws IOException {
+	public void openView(String viewName, String pageTitle) throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		Parent parent = loader.load(getClass().getResource("/view/" + viewName + ".fxml").openStream());
 		Scene scene = new Scene(parent);
@@ -25,7 +25,7 @@ public class Utility {
 
 	}
 
-	public void openViewAsPopUp(Event event, String viewName, String pageTitle) throws IOException {
+	public void openViewAsPopUp(String viewName, String pageTitle) throws IOException {
 		Stage stage = new Stage();
 		FXMLLoader loader = new FXMLLoader();
 		Parent root = loader.load(getClass().getResource("/view/" + viewName + ".fxml").openStream());

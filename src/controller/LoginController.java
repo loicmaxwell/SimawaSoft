@@ -51,7 +51,7 @@ public class LoginController implements Initializable {
 		if(loginModel.isLogin(txt_login.getText(), txt_password.getText())){		
 			//Fermeture de la fenetre de connexion
 			((Node)event.getSource()).getScene().getWindow().hide();
-			utility.openView(event, "Home", "Accueil");
+			utility.openView("Home", "Accueil");
 		} else {
 			if (txt_login.getText().equals("") || txt_password.getText().equals("")) {
 				isConnected.setText("Les champs Login et mot de passe sont obligatoires.");

@@ -22,7 +22,7 @@ public class RoomModel {
 	/***************************************
 	 * Insert or Update a Room
 	 * @param room
-	 * @return the user inserted or updated
+	 * @return the room inserted or updated
 	 ***************************************/
 	public Room upsertRoom(Room room) {
 		try {
@@ -122,5 +122,24 @@ public class RoomModel {
 			e.printStackTrace();
 		}
 		return aRoom;
+	}
+	
+	/*****************************
+	 * DELETE A ROOM
+	 * @param id_room
+	 * @return Boolean true if OK
+	 *****************************/
+	public Boolean deleteRoom(int id_room) {
+		try {
+			String sql = "DELETE FROM Rooms WHERE id_room = ? ";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id_room);
+			ps.executeUpdate();			
+			return true;
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

@@ -131,14 +131,17 @@ public class HomeController implements Initializable {
 				deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						Alert alert = Tools.showConfirmationDialog("Voulez-vous vraiment supprimer ce client ?");
+						Customer customer = customerTable.getItems().get(row.getIndex()).getCustomer();
+						Alert alert = Tools.showConfirmationDialog("Voulez-vous vraiment supprimer ce client : " + customer.getFirstname() + " " + customer.getLastname() +" ?");
+						
 						Optional<ButtonType> result = alert.showAndWait();
 						if (result.get() == ButtonType.CANCEL) {
 							alert.hide();
-						} else {
-							//TODO action to delete a customer
-							Customer customer = customerTable.getItems().get(row.getIndex()).getCustomer();
-							System.out.println(customer.getFirstname() + " deleted");
+						} 
+						else {				
+							customerModel.deleteCustomer(customer.getId_customer());
+							// Rafraichir les données Clients
+							HomeController.refreshDataCustomer();
 						}
 					}
 				});
@@ -151,7 +154,7 @@ public class HomeController implements Initializable {
 						Main.sessionData.put("customer", customer);
 						System.out.println(customer.getFirstname() + " edited");
 						try {
-							utility.openViewAsPopUp(event, "EditCustomer", "Modifier Client");
+							utility.openViewAsPopUp("EditCustomer", "Modifier Client");
 						} catch (IOException e) {
 							e.printStackTrace();
 						}	
@@ -188,15 +191,8 @@ public class HomeController implements Initializable {
 	public void deconnexion(ActionEvent event) throws IOException {
 		// Fermeture de la fenetre
 		menuBtn_currentUser.getScene().getWindow().hide();
-		utility.openView(event, "Login", "Connexion");		
-		/*
-		FXMLLoader loader = new FXMLLoader();
-		Parent root = loader.load(getClass().getResource("/view/Login.fxml").openStream());
-		Scene scene = new Scene(root);	
-		Main.primaryStage.setScene(scene);
-		Main.primaryStage.show();
-		*/
-		
+		utility.openView("Login", "Connexion");		
+				
 	}
 		
 	public void filterCustomerList(String oldValue, String newValue){
@@ -237,7 +233,8 @@ public class HomeController implements Initializable {
 	
 	@FXML
 	private void addCustomer(ActionEvent event) throws IOException {
-		utility.openViewAsPopUp(event, "EditCustomer", "Nouveau Client");		
+		Main.sessionData.put("customer", null);
+		utility.openViewAsPopUp("EditCustomer", "Nouveau Client");		
 	}
 	
 	@FXML

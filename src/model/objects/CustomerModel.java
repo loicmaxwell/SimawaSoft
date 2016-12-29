@@ -39,11 +39,23 @@ public class CustomerModel {
 				ps = connection.prepareStatement(sql);
 				ps.setInt(8, customer.getId_customer());
 			}
+			
 			ps.setString(1, customer.getId_card());
 			ps.setString(2, customer.getDocumentType());
-			ps.setString(3, customer.getFirstname());
-			ps.setString(4, customer.getLastname());
-			ps.setString(5, customer.getEmail());
+			
+			//Prenom : première lettre en majuscule
+			if(!customer.getFirstname().equals("")){
+				ps.setString(3, customer.getFirstname().toLowerCase().replaceFirst(".",(customer.getFirstname().charAt(0)+"").toUpperCase()));	
+			}
+			//Nom : tout en majuscule
+			if(!customer.getLastname().equals("")){
+				ps.setString(4, customer.getLastname().toUpperCase());
+			}
+			// Email tout en miniscule
+			if(!customer.getEmail().equals("")){
+				ps.setString(5, customer.getEmail().toLowerCase());
+			}
+			
 			ps.setString(6, customer.getPhone());
 			ps.setString(7, customer.getBirthdate());
 			ps.executeUpdate();
@@ -70,7 +82,7 @@ public class CustomerModel {
 	public ArrayList<Customer> getAllCustomer() {
 		ArrayList<Customer> allCustomer = new ArrayList<Customer>();
 		try {
-			String sql = "SELECT * FROM Customers ";
+			String sql = "SELECT * FROM Customers ORDER BY LastName";
 			Statement st = connection.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			while (rs.next()) {
@@ -124,5 +136,24 @@ public class CustomerModel {
 			e.printStackTrace();
 		}
 		return aCustomer;
+	}
+	
+	/*****************************
+	 * DELETE  A CUSTOMER
+	 * @param id_customer
+	 * @return Boolean true if OK
+	 *****************************/
+	public Boolean deleteCustomer(int id_customer) {
+		try {
+			String sql = "DELETE FROM Customers WHERE id_customer = ? ";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id_customer);
+			ps.executeUpdate();			
+			return true;
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return false;
+		}
 	}
 }

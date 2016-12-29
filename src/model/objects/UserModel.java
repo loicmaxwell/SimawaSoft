@@ -174,4 +174,23 @@ public class UserModel {
 		}
 		return aUser;
 	}
+	
+	/*****************************
+	 * DELETE A USER
+	 * @param id_user
+	 * @return Boolean true if OK
+	 *****************************/
+	public Boolean deleteUser(int id_user) {
+		try {
+			String sql = "DELETE FROM Users WHERE id_user = ? ";
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setInt(1, id_user);
+			ps.executeUpdate();			
+			return true;
+			
+		} catch (SQLException e) {			
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
