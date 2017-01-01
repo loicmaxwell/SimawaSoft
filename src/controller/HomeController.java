@@ -181,6 +181,52 @@ public class HomeController implements Initializable {
 		
 		roomTableData.addAll(roomModel.getAllRoom()); 
 		roomTable.setItems(roomTableData);
+		roomTable.setRowFactory(new Callback<TableView<Room>, TableRow<Room>>() {
+			@Override
+			public TableRow<Room> call(TableView<Room> tableView) {
+				final TableRow<Room> row = new TableRow<>();
+				final ContextMenu contextMenu = new ContextMenu();
+				contextMenu.setId("contextMenu");
+				final MenuItem deleteMenuItem = new MenuItem("Supprimer");
+				final MenuItem editMenuItem = new MenuItem("Modifier");
+
+				// Set context menu on row, but use a binding to make it only show for non-empty rows:
+				row.contextMenuProperty().bind(Bindings.when(row.emptyProperty()).then((ContextMenu) null).otherwise(contextMenu));
+				
+				contextMenu.getItems().addAll(editMenuItem, deleteMenuItem);
+
+				deleteMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						Alert alert = Tools.showConfirmationDialog("Voulez-vous vraiment supprimer cette chambre?");
+						Optional<ButtonType> result = alert.showAndWait();
+						if (result.get() == ButtonType.CANCEL) {
+							alert.hide();
+						} else {
+							//TODO action to delete a customer
+							Room room = roomTable.getItems().get(row.getIndex()).getRoom();
+							System.out.println(room.getRoom_number() + " deleted");
+						}
+					}
+				});
+
+				editMenuItem.setOnAction(new EventHandler<ActionEvent>() {
+					@Override
+					public void handle(ActionEvent event) {
+						//TODO action to edit a customer
+						Room room = roomTable.getItems().get(row.getIndex()).getRoom();
+						System.out.println(room.getRoom_number() + " edited");
+						try {
+							utility.openViewAsPopUp("EditRoom", "Modifier la chambre");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}	
+					}
+				});
+
+				return row;
+			}
+		});
 		
 		// Add listener on search field		
 		searchRoom.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -238,9 +284,8 @@ public class HomeController implements Initializable {
 	}
 	
 	@FXML
-	private void addRoom() {
-		//TODO
-		System.out.println("add ROOM");
+	private void addRoom() throws IOException {
+		utility.openViewAsPopUp("EditRoom", "Nouvelle chambre");
 	}
 	
 	public static void refreshDataCustomer(){

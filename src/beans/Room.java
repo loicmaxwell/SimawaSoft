@@ -76,6 +76,10 @@ public class Room {
 	public void setFan(Boolean fan) {
 		this.fan = fan;
 	}
+
+	public Room getRoom() {
+		return new Room(this.room_number, this.price, this.size);
+	}
 	
 	
 }
