@@ -24,7 +24,7 @@ public class CustomerModel {
 	 * @param customer
 	 * @return the user inserted or updated
 	 ***************************************/
-	public Customer upsertCustomer(Customer customer) {
+	public synchronized Customer upsertCustomer(Customer customer) {
 		try {
 			String sql = null;
 			PreparedStatement ps;
@@ -79,7 +79,7 @@ public class CustomerModel {
 	 * GET ALL CUSTOMER
 	 * @return List of Customer
 	 *****************************/
-	public ArrayList<Customer> getAllCustomer() {
+	public synchronized ArrayList<Customer> getAllCustomer() {
 		ArrayList<Customer> allCustomer = new ArrayList<Customer>();
 		try {
 			String sql = "SELECT * FROM Customers ORDER BY LastName";
@@ -111,7 +111,7 @@ public class CustomerModel {
 	 * @param id_customer
 	 * @return a Customer OR null
 	 *****************************/
-	public Customer getCustomer(int id_customer) {
+	public synchronized Customer getCustomer(int id_customer) {
 		Customer aCustomer = null;
 		try {
 			String sql = "SELECT * FROM Customers WHERE id_customer = ? Limit 1";
@@ -143,7 +143,7 @@ public class CustomerModel {
 	 * @param id_customer
 	 * @return Boolean true if OK
 	 *****************************/
-	public Boolean deleteCustomer(int id_customer) {
+	public synchronized Boolean deleteCustomer(int id_customer) {
 		try {
 			String sql = "DELETE FROM Customers WHERE id_customer = ? ";
 			PreparedStatement ps = connection.prepareStatement(sql);

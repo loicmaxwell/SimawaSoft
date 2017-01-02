@@ -24,7 +24,7 @@ public class UserModel {
 	 * Check if the connexion to the Database is open
 	 * @return
 	 ************************************************/
-	public boolean isDbConnected() {
+	public synchronized boolean isDbConnected() {
 		try {
 			return !connection.isClosed();
 		} catch (SQLException e) {
@@ -40,7 +40,7 @@ public class UserModel {
 	 * @return
 	 * @throws SQLException
 	 **************************************/
-	public boolean isLogin(String login, String pwd) throws SQLException {
+	public synchronized boolean isLogin(String login, String pwd) throws SQLException {
 		try {
 			String sql = "SELECT * FROM users WHERE login = ? AND password = ? Limit 1";
 			PreparedStatement ps = connection.prepareStatement(sql);
@@ -77,7 +77,7 @@ public class UserModel {
 	 * @param user
 	 * @return the user inserted or updated
 	 ***************************************/
-	public User upsertUser(User user) {
+	public synchronized User upsertUser(User user) {
 		try {
 			String sql = null;
 			PreparedStatement ps;
@@ -120,7 +120,7 @@ public class UserModel {
 	 * GET ALL USER
 	 * @return List of User
 	 *****************************/
-	public ArrayList<User> getAllUser() {
+	public synchronized ArrayList<User> getAllUser() {
 		ArrayList<User> allUsers = new ArrayList<User>();
 		try {
 			String sql = "SELECT * FROM Users ";
@@ -150,7 +150,7 @@ public class UserModel {
 	 * @param id_user
 	 * @return the User OR null
 	 *****************************/
-	public User getUser(int id_user) {
+	public synchronized User getUser(int id_user) {
 		User aUser = null;
 		try {
 			String sql = "SELECT * FROM users WHERE id_user = ? Limit 1";
@@ -180,7 +180,7 @@ public class UserModel {
 	 * @param id_user
 	 * @return Boolean true if OK
 	 *****************************/
-	public Boolean deleteUser(int id_user) {
+	public synchronized Boolean deleteUser(int id_user) {
 		try {
 			String sql = "DELETE FROM Users WHERE id_user = ? ";
 			PreparedStatement ps = connection.prepareStatement(sql);

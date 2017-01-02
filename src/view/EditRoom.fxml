@@ -25,6 +25,7 @@
                   </Label>
                   <Separator layoutX="7.0" layoutY="51.0" prefHeight="1.0" prefWidth="488.0" />
                   <Label fx:id="lbl_idCustomer" layoutX="380.0" layoutY="15.0" visible="false" />
+                  <Label fx:id="lbl_idRoom" layoutX="319.0" layoutY="15.0" prefHeight="21.0" prefWidth="145.0" visible="false" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -60,10 +61,10 @@
                </padding>
                <children>
                   <Label text="Statut" GridPane.rowIndex="2" />
-                  <Label text="Taille (m²)" GridPane.rowIndex="3" />
+                  <Label text="Taille (m²) *" GridPane.rowIndex="3" />
                   <Label />
                   <Label text="Numéro de la chambre *" />
-                  <Label text="prix *" GridPane.rowIndex="1" />
+                  <Label text="prix (FCFA) *" GridPane.rowIndex="1" />
                   <TextField fx:id="txt_num" promptText="Numéro de la chambre" GridPane.columnIndex="1" />
                   <TextField fx:id="txt_price" promptText="Prix" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="txt_size" promptText="Taille (m²)" GridPane.columnIndex="1" GridPane.rowIndex="3" />

@@ -69,8 +69,8 @@ public class DBManager {
 		StringBuilder create = new StringBuilder();
 		create.append("create table if not exists rooms (");
 		create.append("id_room INTEGER PRIMARY KEY AUTOINCREMENT, ");
-		create.append("room_number varchar(50), ");
-		create.append("price double(50), ");
+		create.append("room_number varchar(50) NOT NULL UNIQUE, ");
+		create.append("price double(50) NOT NULL, ");
 		create.append("status varchar(50), ");
 		create.append("size double(50), ");
 		create.append("tv boolean(1), ");
@@ -102,7 +102,7 @@ public class DBManager {
     	st = null;
     }
 	
-	public static Connection getConnection() {
+	public static synchronized Connection getConnection() {
 		return connection;
 	}
 

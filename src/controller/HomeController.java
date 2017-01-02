@@ -36,7 +36,7 @@ import tools.Tools;
 public class HomeController implements Initializable {
 	public Utility utility;
 	private static CustomerModel customerModel;
-	private RoomModel roomModel;
+	private static RoomModel roomModel;
 	
 	//***** HEADER ****
 	@FXML
@@ -86,8 +86,8 @@ public class HomeController implements Initializable {
 	@FXML
 	TableColumn<Customer, String> cFan;	
 
-	final ObservableList<Room> roomTableData = FXCollections.observableArrayList();	
-	public static ObservableList<Customer> customerTableData = FXCollections.observableArrayList();
+	private static ObservableList<Room> roomTableData = FXCollections.observableArrayList();	
+	private static ObservableList<Customer> customerTableData = FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -140,8 +140,7 @@ public class HomeController implements Initializable {
 						} 
 						else {				
 							customerModel.deleteCustomer(customer.getId_customer());
-							// Rafraichir les données Clients
-							HomeController.refreshDataCustomer();
+							refreshDataCustomer();
 						}
 					}
 				});
@@ -149,10 +148,8 @@ public class HomeController implements Initializable {
 				editMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						//TODO action to edit a customer
 						Customer customer = customerTable.getItems().get(row.getIndex()).getCustomer();
 						Main.sessionData.put("customer", customer);
-						System.out.println(customer.getFirstname() + " edited");
 						try {
 							utility.openViewAsPopUp("EditCustomer", "Modifier Client");
 						} catch (IOException e) {
@@ -203,9 +200,9 @@ public class HomeController implements Initializable {
 						if (result.get() == ButtonType.CANCEL) {
 							alert.hide();
 						} else {
-							//TODO action to delete a customer
 							Room room = roomTable.getItems().get(row.getIndex()).getRoom();
-							System.out.println(room.getRoom_number() + " deleted");
+							roomModel.deleteRoom(room.getId_room());
+							refreshDataRooms();
 						}
 					}
 				});
@@ -213,9 +210,8 @@ public class HomeController implements Initializable {
 				editMenuItem.setOnAction(new EventHandler<ActionEvent>() {
 					@Override
 					public void handle(ActionEvent event) {
-						//TODO action to edit a customer
 						Room room = roomTable.getItems().get(row.getIndex()).getRoom();
-						System.out.println(room.getRoom_number() + " edited");
+						Main.sessionData.put("room", room);
 						try {
 							utility.openViewAsPopUp("EditRoom", "Modifier la chambre");
 						} catch (IOException e) {
@@ -285,12 +281,18 @@ public class HomeController implements Initializable {
 	
 	@FXML
 	private void addRoom() throws IOException {
+		Main.sessionData.put("room", null);
 		utility.openViewAsPopUp("EditRoom", "Nouvelle chambre");
 	}
 	
 	public static void refreshDataCustomer(){
 		customerTableData.clear();
 		customerTableData.addAll(customerModel.getAllCustomer()); 
+	}
+	
+	public static void refreshDataRooms(){
+		roomTableData.clear();
+		roomTableData.addAll(roomModel.getAllRoom()); 
 	}
 
 }

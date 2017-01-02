@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import beans.Room;
 import model.database.DBManager;
+import tools.Tools;
 
 public class RoomModel {
 	Connection connection;
@@ -24,7 +25,7 @@ public class RoomModel {
 	 * @param room
 	 * @return the room inserted or updated
 	 ***************************************/
-	public Room upsertRoom(Room room) {
+	public synchronized Room upsertRoom(Room room) {
 		try {
 			String sql = null;
 			PreparedStatement ps;
@@ -34,7 +35,6 @@ public class RoomModel {
 				sql = "INSERT INTO Rooms(room_number, price, status, size, tv, fan) VALUES (?, ?, ?, ?, ?, ?)";
 				ps = connection.prepareStatement(sql);
 			} else {
-				System.out.println("UPDATE Room...");
 				sql = "UPDATE Rooms SET room_number=?, price=?, status=?, size=?, tv=?, fan=? WHERE id_room=?";
 				ps = connection.prepareStatement(sql);
 				ps.setInt(7, room.getId_room());
@@ -58,6 +58,7 @@ public class RoomModel {
 			return room;
 
 		} catch (SQLException e) {
+			Tools.showErrorDialog(e.getMessage());
 			e.printStackTrace();
 			return null;
 		}
@@ -67,7 +68,7 @@ public class RoomModel {
 	 * GET ALL ROOMs
 	 * @return List of Room
 	 *****************************/
-	public ArrayList<Room> getAllRoom() {
+	public synchronized ArrayList<Room> getAllRoom() {
 		ArrayList<Room> allRooms = new ArrayList<Room>();
 		try {
 
@@ -98,7 +99,7 @@ public class RoomModel {
 	 * @param id_room
 	 * @return a Room OR null
 	 *****************************/
-	public Room getRoom(int id_room) {
+	public synchronized Room getRoom(int id_room) {
 		Room aRoom = null;
 		try {
 			String sql = "SELECT * FROM Rooms WHERE id_room = ? Limit 1";
@@ -129,7 +130,7 @@ public class RoomModel {
 	 * @param id_room
 	 * @return Boolean true if OK
 	 *****************************/
-	public Boolean deleteRoom(int id_room) {
+	public synchronized Boolean deleteRoom(int id_room) {
 		try {
 			String sql = "DELETE FROM Rooms WHERE id_room = ? ";
 			PreparedStatement ps = connection.prepareStatement(sql);

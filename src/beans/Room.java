@@ -21,6 +21,17 @@ public class Room {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Room(int id_room, int room_number, double price, String status, int size, Boolean tv, Boolean fan) {
+		super();
+		this.id_room = id_room;
+		this.room_number = room_number;
+		this.price = price;
+		this.status = status;
+		this.size = size;
+		this.tv = tv;
+		this.fan = fan;
+	}
+
 	public int getId_room() {
 		return id_room;
 	}
@@ -78,7 +89,7 @@ public class Room {
 	}
 
 	public Room getRoom() {
-		return new Room(this.room_number, this.price, this.size);
+		return new Room(id_room, room_number, price, status, size, tv, fan);
 	}
 	
 	
