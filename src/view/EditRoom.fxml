@@ -64,13 +64,13 @@
                   <Label text="Taille (m²) *" GridPane.rowIndex="3" />
                   <Label />
                   <Label text="Numéro de la chambre *" />
-                  <Label text="prix (FCFA) *" GridPane.rowIndex="1" />
+                  <Label text="Prix (FCFA) *" GridPane.rowIndex="1" />
                   <TextField fx:id="txt_num" promptText="Numéro de la chambre" GridPane.columnIndex="1" />
                   <TextField fx:id="txt_price" promptText="Prix" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <TextField fx:id="txt_size" promptText="Taille (m²)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <ComboBox fx:id="cb_status" prefHeight="31.0" prefWidth="282.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <CheckBox fx:id="cb_tv" mnemonicParsing="false" prefHeight="35.0" prefWidth="152.0" text="Téléviseur" GridPane.rowIndex="4" />
-                  <CheckBox fx:id="cb_fan" mnemonicParsing="false" prefHeight="33.0" prefWidth="107.0" text="ventilateur" GridPane.rowIndex="5" />
+                  <CheckBox fx:id="cb_fan" mnemonicParsing="false" prefHeight="33.0" prefWidth="107.0" text="Ventilateur" GridPane.rowIndex="5" />
                </children>
             </GridPane>
          </left>

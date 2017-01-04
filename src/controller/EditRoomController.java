@@ -1,11 +1,9 @@
 package controller;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import application.Main;
-import beans.Customer;
 import beans.Room;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,10 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import model.objects.CustomerModel;
 import model.objects.RoomModel;
 import tools.Tools;
 
@@ -74,7 +70,7 @@ public class EditRoomController implements Initializable {
 	@FXML
 	public void saveRoom(ActionEvent event) {
 		if(txt_num.getText().equals("") || txt_price.getText().equals("") || txt_size.getText().equals("")){
-			Tools.showErrorDialog("Les champs marqués d'une * sont obligatoires !");
+			Tools.showErrorDialog("Les champs marquÃ©s d'une * sont obligatoires !");
 		}
 		else{
 			try {

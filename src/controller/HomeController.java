@@ -10,6 +10,8 @@ import beans.Customer;
 import beans.Room;
 import beans.User;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,10 +25,12 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Callback;
 import model.objects.CustomerModel;
@@ -74,17 +78,17 @@ public class HomeController implements Initializable {
 	@FXML
 	TableView<Room> roomTable;
 	@FXML
-	TableColumn<Customer, String> cRoomNumber;	
+	TableColumn<Room, String> cRoomNumber;	
 	@FXML
-	TableColumn<Customer, String> cPrice;
+	TableColumn<Room, String> cPrice;
 	@FXML
-	TableColumn<Customer, String> cStatus;
+	TableColumn<Room, String> cStatus;
 	@FXML
-	TableColumn<Customer, String> cSize;
+	TableColumn<Room, String> cSize;
 	@FXML
-	TableColumn<Customer, String> cTv;
+	TableColumn<Room, String> cTv;
 	@FXML
-	TableColumn<Customer, String> cFan;	
+	TableColumn<Room, String> cFan;	
 
 	private static ObservableList<Room> roomTableData = FXCollections.observableArrayList();	
 	private static ObservableList<Customer> customerTableData = FXCollections.observableArrayList();
@@ -169,13 +173,39 @@ public class HomeController implements Initializable {
 		
 		
 		//***** ROOM *****
-		cRoomNumber.setCellValueFactory(new PropertyValueFactory<Customer, String>("room_number"));
-		cPrice.setCellValueFactory(new PropertyValueFactory<Customer, String>("price"));
-		cStatus.setCellValueFactory(new PropertyValueFactory<Customer, String>("status"));
-		cSize.setCellValueFactory(new PropertyValueFactory<Customer, String>("size"));
-		cTv.setCellValueFactory(new PropertyValueFactory<Customer, String>("tv"));
-		cFan.setCellValueFactory(new PropertyValueFactory<Customer, String>("fan"));	
+		cRoomNumber.setCellValueFactory(new PropertyValueFactory<Room, String>("room_number"));
+		cPrice.setCellValueFactory(new PropertyValueFactory<Room, String>("price"));
+		cStatus.setCellValueFactory(new PropertyValueFactory<Room, String>("status"));
+		cSize.setCellValueFactory(new PropertyValueFactory<Room, String>("size"));
+		//cTv.setCellValueFactory(new PropertyValueFactory<Room, String>("tv"));
+		//cFan.setCellValueFactory(new PropertyValueFactory<Room, String>("fan"));	
+
+		// Column TV - Create a Checkbox Cell instead of Simple Boolean property
+		cTv.setCellFactory(col -> {
+			TableCell<Room, String> cell = new CheckBoxTableCell<>(index -> {
+				BooleanProperty active = new SimpleBooleanProperty(roomTable.getItems().get(index).getTv());
+				active.addListener((obs, wasActive, isNowActive) -> {
+					Room item = roomTable.getItems().get(index);
+					item.setTv(isNowActive);
+				});
+				return active;
+			});
+			return cell;
+		});
 		
+		// Column Fan - Create a Checkbox Cell instead of Simple Boolean property
+		cFan.setCellFactory(col -> {
+			TableCell<Room, String> cell = new CheckBoxTableCell<>(index -> {
+				BooleanProperty active = new SimpleBooleanProperty(roomTable.getItems().get(index).getFan());
+				active.addListener((obs, wasActive, isNowActive) -> {
+					Room item = roomTable.getItems().get(index);
+					item.setFan(isNowActive);
+				});
+				return active;
+			});
+			return cell;
+		});
+
 		roomTableData.addAll(roomModel.getAllRoom()); 
 		roomTable.setItems(roomTableData);
 		roomTable.setRowFactory(new Callback<TableView<Room>, TableRow<Room>>() {
