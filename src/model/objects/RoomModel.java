@@ -31,20 +31,24 @@ public class RoomModel {
 
 			// if the id_room is not specified, it is an insert
 			if (room.getId_room() == 0) {
-				sql = "INSERT INTO Rooms(room_number, price, status, size, tv, fan) VALUES (?, ?, ?, ?, ?, ?)";
+				System.out.println("INSERT Room...");
+				sql = "INSERT INTO Rooms(room_number, price, status, floor, size, beds, description, tv, fan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 				ps = connection.prepareStatement(sql);
 			} else {
 				System.out.println("UPDATE Room...");
-				sql = "UPDATE Rooms SET room_number=?, price=?, status=?, size=?, tv=?, fan=? WHERE id_room=?";
+				sql = "UPDATE Rooms SET room_number=?, price=?, status=?, floor=?, size=?, beds=?, description=?, tv=?, fan=? WHERE id_room=?";
 				ps = connection.prepareStatement(sql);
 				ps.setInt(7, room.getId_room());
 			}
 			ps.setInt(1, room.getRoom_number());
 			ps.setDouble(2, room.getPrice());
 			ps.setString(3, room.getStatus());
-			ps.setInt(4, room.getSize());
-			ps.setBoolean(5, room.getTv());
-			ps.setBoolean(6, room.getFan());
+			ps.setInt(4, room.getFloor());
+			ps.setDouble(5, room.getSize());
+			ps.setInt(6, room.getBeds());
+			ps.setString(7, room.getDescription());
+			ps.setBoolean(8, room.getTv());
+			ps.setBoolean(9, room.getFan());
 			ps.executeUpdate();
 
 			//After insert get id of the room, add to the room variable then return
@@ -79,8 +83,11 @@ public class RoomModel {
 				aRoom.setId_room(rs.getInt("id_room"));
 				aRoom.setRoom_number(rs.getInt("room_number"));
 				aRoom.setPrice(rs.getDouble("price"));
-				aRoom.setStatus(rs.getString("status"));
-				aRoom.setSize(rs.getInt("size"));
+				aRoom.setStatus(rs.getString("status"));	
+				aRoom.setFloor(rs.getInt("floor"));
+				aRoom.setSize(rs.getInt("size"));	
+				aRoom.setBeds(rs.getInt("beds"));
+				aRoom.setDescription(rs.getString("description"));
 				aRoom.setTv(rs.getBoolean("tv"));
 				aRoom.setFan(rs.getBoolean("fan"));
 
@@ -111,8 +118,11 @@ public class RoomModel {
 				aRoom.setId_room(rs.getInt("id_room"));
 				aRoom.setRoom_number(rs.getInt("room_number"));
 				aRoom.setPrice(rs.getDouble("price"));
-				aRoom.setStatus(rs.getString("status"));
-				aRoom.setSize(rs.getInt("size"));
+				aRoom.setStatus(rs.getString("status"));	
+				aRoom.setFloor(rs.getInt("floor"));
+				aRoom.setSize(rs.getInt("size"));	
+				aRoom.setBeds(rs.getInt("beds"));
+				aRoom.setDescription(rs.getString("description"));
 				aRoom.setTv(rs.getBoolean("tv"));
 				aRoom.setFan(rs.getBoolean("fan"));
 			} 

@@ -5,11 +5,13 @@ public class Room {
 	private int room_number;
 	private double price;
 	private String status;
-	private int size;
+	private int floor;
+	private double size;
+	private int beds;
+	private String description;
 	private Boolean tv = false;
 	private Boolean fan = false;
-	
-	
+		
 	public Room(int room_number, double price, int size) {
 		super();
 		this.room_number = room_number;
@@ -53,11 +55,11 @@ public class Room {
 		this.status = status;
 	}
 
-	public int getSize() {
+	public double getSize() {
 		return size;
 	}
 
-	public void setSize(int size) {
+	public void setSize(double size) {
 		this.size = size;
 	}
 
@@ -65,6 +67,22 @@ public class Room {
 		return tv;
 	}
 
+	public int getBeds() {
+		return beds;
+	}
+
+	public void setBeds(int beds) {
+		this.beds = beds;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+	
 	public void setTv(Boolean tv) {
 		this.tv = tv;
 	}
@@ -76,6 +94,13 @@ public class Room {
 	public void setFan(Boolean fan) {
 		this.fan = fan;
 	}
-	
+
+	public int getFloor() {
+		return floor;
+	}
+
+	public void setFloor(int floor) {
+		this.floor = floor;
+	}
 	
 }
