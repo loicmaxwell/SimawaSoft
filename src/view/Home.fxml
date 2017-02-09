@@ -70,12 +70,14 @@
                                  <children>
                                     <TableView fx:id="roomTable" layoutY="57.0" prefHeight="686.0" prefWidth="1227.0">
                                        <columns>
-                                          <TableColumn fx:id="cRoomNumber" prefWidth="205.0" text="Chambre" />
-                                          <TableColumn fx:id="cPrice" prefWidth="205.0" text="Prix" />
-                                          <TableColumn fx:id="cStatus" prefWidth="205.0" text="Status" />
-                                          <TableColumn fx:id="cSize" prefWidth="204.0" text="Taille" />
-                                          <TableColumn fx:id="cTv" prefWidth="204.0" text="Téléviseur" />
-                                          <TableColumn fx:id="cFan" prefWidth="204.0" text="Ventilateur" />
+                                          <TableColumn fx:id="cRoomNumber" prefWidth="154.0" text="Chambre" />
+                                          <TableColumn fx:id="cPrice" prefWidth="154.0" text="Prix" />
+                                          <TableColumn fx:id="cStatus" prefWidth="154.0" text="Status" />
+                                          <TableColumn fx:id="cFloor" prefWidth="154.0" text="Etage" />
+                                          <TableColumn fx:id="cSize" prefWidth="154.0" text="Taille" />
+                                          <TableColumn fx:id="cBeds" prefWidth="154.0" text="Lit(s)" />
+                                          <TableColumn fx:id="cTv" prefWidth="152.0" text="Téléviseur" />
+                                          <TableColumn fx:id="cFan" prefWidth="152.0" text="Ventilateur" />
                                        </columns>
                                     </TableView>
                                     <TextField fx:id="searchRoom" layoutY="15.0" prefHeight="31.0" prefWidth="534.0" promptText="Rechercher une chambre" />

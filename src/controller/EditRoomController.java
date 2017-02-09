@@ -31,13 +31,21 @@ public class EditRoomController implements Initializable {
 	@FXML
 	private ComboBox<String> cb_status;
 	@FXML
+	private TextField txt_floor;
+	@FXML
 	private TextField txt_size;
+	@FXML
+	private TextField txt_beds;
+	@FXML
+	private javafx.scene.control.TextArea txt_description;
 	@FXML
 	private CheckBox cb_tv;
 	@FXML
 	private CheckBox cb_fan;
 	@FXML
 	private Button btn_cancel;
+	@FXML
+	private Button btn_save;
 	
 
 	@Override
@@ -51,7 +59,10 @@ public class EditRoomController implements Initializable {
 			lbl_roomNumber.setText(room2Edit.getRoom_number()+"");
 			txt_price.setText(room2Edit.getPrice()+"");
 			cb_status.setValue(room2Edit.getStatus());
+			txt_floor.setText(room2Edit.getFloor()+"");
 			txt_size.setText(room2Edit.getSize()+"");
+			txt_beds.setText(room2Edit.getBeds()+"");
+			txt_description.setText(room2Edit.getDescription()+"");
 			cb_tv.setSelected(room2Edit.getTv());
 			cb_fan.setSelected(room2Edit.getFan());
 			
@@ -78,7 +89,10 @@ public class EditRoomController implements Initializable {
 				room.setRoom_number(Integer.parseInt(txt_num.getText()));
 				room.setPrice(Double.parseDouble(txt_price.getText()));
 				room.setStatus(cb_status.getValue());
-				room.setSize(Integer.parseInt(txt_size.getText()));
+				room.setFloor(Integer.parseInt(txt_floor.getText()));
+				room.setSize(Double.parseDouble(txt_size.getText()));
+				room.setBeds(Integer.parseInt(txt_beds.getText()));
+				room.setDescription(txt_description.getText());
 				room.setTv(cb_tv.isSelected());
 				room.setFan(cb_fan.isSelected());
 				

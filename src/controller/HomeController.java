@@ -84,7 +84,11 @@ public class HomeController implements Initializable {
 	@FXML
 	TableColumn<Room, String> cStatus;
 	@FXML
+	TableColumn<Room, String> cFloor;
+	@FXML
 	TableColumn<Room, String> cSize;
+	@FXML
+	TableColumn<Room, String> cBeds;
 	@FXML
 	TableColumn<Room, String> cTv;
 	@FXML
@@ -176,9 +180,9 @@ public class HomeController implements Initializable {
 		cRoomNumber.setCellValueFactory(new PropertyValueFactory<Room, String>("room_number"));
 		cPrice.setCellValueFactory(new PropertyValueFactory<Room, String>("price"));
 		cStatus.setCellValueFactory(new PropertyValueFactory<Room, String>("status"));
+		cFloor.setCellValueFactory(new PropertyValueFactory<Room, String>("floor"));
 		cSize.setCellValueFactory(new PropertyValueFactory<Room, String>("size"));
-		//cTv.setCellValueFactory(new PropertyValueFactory<Room, String>("tv"));
-		//cFan.setCellValueFactory(new PropertyValueFactory<Room, String>("fan"));	
+		cBeds.setCellValueFactory(new PropertyValueFactory<Room, String>("beds"));	
 
 		// Column TV - Create a Checkbox Cell instead of Simple Boolean property
 		cTv.setCellFactory(col -> {

@@ -9,9 +9,9 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.EditRoomController">
    <children>
-      <BorderPane prefHeight="600.0" prefWidth="500.0">
+      <BorderPane prefHeight="800.0" prefWidth="600.0">
          <top>
-            <Pane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="14.0" layoutY="10.0" text="Chambre &gt; ">
                      <font>
@@ -23,7 +23,7 @@
                         <Font name="System Bold" size="20.0" />
                      </font>
                   </Label>
-                  <Separator layoutX="7.0" layoutY="51.0" prefHeight="1.0" prefWidth="488.0" />
+                  <Separator layoutX="16.0" layoutY="51.0" prefHeight="3.0" prefWidth="566.0" />
                   <Label fx:id="lbl_idCustomer" layoutX="380.0" layoutY="15.0" visible="false" />
                   <Label fx:id="lbl_idRoom" layoutX="319.0" layoutY="15.0" prefHeight="21.0" prefWidth="145.0" visible="false" />
                </children>
@@ -33,19 +33,19 @@
             </Pane>
          </top>
          <bottom>
-            <Pane prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <Pane prefHeight="50.0" prefWidth="700.0" BorderPane.alignment="CENTER">
                <children>
-                  <Separator layoutX="6.0" layoutY="-1.0" prefHeight="1.0" prefWidth="488.0" />
-                  <Button fx:id="btn_save" layoutX="312.0" layoutY="10.0" mnemonicParsing="false" onAction="#saveRoom" text="Enregister" />
-                  <Button fx:id="btn_cancel" layoutX="410.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancel" text="Annuler" />
+                  <Separator layoutX="13.0" layoutY="-19.0" prefHeight="21.0" prefWidth="574.0" />
+                  <Button fx:id="btn_save" layoutX="414.0" layoutY="10.0" mnemonicParsing="false" onAction="#saveRoom" text="Enregister" />
+                  <Button fx:id="btn_cancel" layoutX="512.0" layoutY="10.0" mnemonicParsing="false" onAction="#cancel" text="Annuler" />
                </children>
             </Pane>
          </bottom>
          <left>
-            <GridPane prefHeight="348.0" prefWidth="510.0" BorderPane.alignment="CENTER">
+            <GridPane prefHeight="698.0" prefWidth="580.0" BorderPane.alignment="CENTER">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="230.0" minWidth="10.0" prefWidth="220.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="250.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="255.0" minWidth="10.0" prefWidth="174.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="352.0" minWidth="10.0" prefWidth="350.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -54,6 +54,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="150.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <padding>
@@ -61,16 +63,26 @@
                </padding>
                <children>
                   <Label text="Statut" GridPane.rowIndex="2" />
-                  <Label text="Taille (m²) *" GridPane.rowIndex="3" />
+                  <Label text="Taille (m²) *" GridPane.rowIndex="4" />
                   <Label />
                   <Label text="Numéro de la chambre *" />
                   <Label text="Prix (FCFA) *" GridPane.rowIndex="1" />
                   <TextField fx:id="txt_num" promptText="Numéro de la chambre" GridPane.columnIndex="1" />
                   <TextField fx:id="txt_price" promptText="Prix" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="txt_size" promptText="Taille (m²)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <ComboBox fx:id="cb_status" prefHeight="31.0" prefWidth="282.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <CheckBox fx:id="cb_tv" mnemonicParsing="false" prefHeight="35.0" prefWidth="152.0" text="Téléviseur" GridPane.rowIndex="4" />
-                  <CheckBox fx:id="cb_fan" mnemonicParsing="false" prefHeight="33.0" prefWidth="107.0" text="Ventilateur" GridPane.rowIndex="5" />
+                  <TextField fx:id="txt_size" promptText="Taille (m²)" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <ComboBox fx:id="cb_status" prefHeight="31.0" prefWidth="352.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <CheckBox fx:id="cb_tv" mnemonicParsing="false" prefHeight="35.0" prefWidth="152.0" text="Téléviseur" GridPane.rowIndex="7" />
+                  <CheckBox fx:id="cb_fan" mnemonicParsing="false" prefHeight="33.0" prefWidth="107.0" text="Ventilateur" GridPane.rowIndex="8" />
+                  <Label prefHeight="21.0" prefWidth="77.0" text="Etage" GridPane.rowIndex="3" />
+                  <Label text="Nombre de lits" GridPane.rowIndex="5" />
+                  <Label text="Description de la chambre" GridPane.rowIndex="6" />
+                  <TextArea fx:id="txt_description" prefHeight="100.0" prefWidth="269.0" promptText="Description de la chambre" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                     <GridPane.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </GridPane.margin>
+                  </TextArea>
+                  <TextField fx:id="txt_beds" promptText="Nombre de lits" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <TextField fx:id="txt_floor" promptText="Etage" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                </children>
             </GridPane>
          </left>
